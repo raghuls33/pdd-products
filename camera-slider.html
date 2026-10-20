@@ -50,31 +50,17 @@ h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,8vw,36px);l
 h1 span{color:var(--mint)}
 .lede{margin:0;color:var(--muted);max-width:44ch}
 .device{position:relative;border-radius:var(--r-md);overflow:hidden;aspect-ratio:1/1;max-width:100%;background:var(--photo);border:1px solid var(--stroke-soft)}
-.device img{width:100%;height:100%;object-fit:contain;display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
-.device.pulse img{transform:scale(1.04)}
+.device img{width:100%;height:100%;object-fit:contain;display:block}
 .device .tag{position:absolute;left:12px;bottom:12px;z-index:2;font-family:var(--f-mono);font-size:11px;color:var(--fg);padding:6px 10px;border-radius:10px;background:rgba(6,20,26,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--stroke);max-width:calc(100% - 24px)}
 .monitor{padding:20px;display:flex;flex-direction:column;gap:12px}
-.row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.row>div{min-width:0}
 h2{font-family:var(--f-display);font-weight:500;font-size:18px;letter-spacing:-.01em;margin:0;text-wrap:balance}
-.sub{font-size:13px;color:var(--muted);margin:0}
-.btn{appearance:none;flex:none;border:1px solid var(--stroke);background:rgba(var(--accent-rgb),.16);color:var(--fg);font:600 14px var(--f-body);padding:12px 18px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s,background .2s}
-.btn:hover{background:rgba(var(--accent-rgb),.26)}
-.btn:active{transform:scale(.97)}
-.btn:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
-.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
-.step{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;padding:12px;border-radius:var(--r-sm);border:1px solid transparent;cursor:pointer;transition:background .3s,border-color .3s}
-.step:hover{background:rgba(255,255,255,.03)}
-.step:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
-.step p{margin:0;color:var(--muted);font-size:14px;transition:color .3s}
-.step .bar{display:block;height:3px;margin-top:10px;border-radius:3px;background:var(--stroke-soft);overflow:hidden;opacity:0;transition:opacity .3s}
-.step .bar i{display:block;height:100%;width:0;background:var(--mint)}
-.step.active{background:rgba(var(--accent-rgb),.09);border-color:rgba(var(--accent-rgb),.3)}
-.step.active p{color:var(--fg)}
-.step.active .bar{opacity:1}
-.step.active .num{background:var(--mint);color:var(--ink)}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;padding:10px 0;position:relative}
+.step:not(:last-child)::before{content:"";position:absolute;left:19px;top:52px;bottom:-6px;width:2px;background:linear-gradient(var(--stroke),transparent)}
+.step p{margin:0;padding-top:9px;color:var(--fg);font-size:14px}
+.num{background:var(--mint);color:var(--ink)}
 .step.done .num{border-color:rgba(var(--accent-rgb),.5)}
-.num{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-family:var(--f-mono);font-size:14px;color:var(--mint);background:rgba(var(--accent-rgb),.1);border:1px solid rgba(var(--accent-rgb),.28);transition:background .3s,color .3s}
+.num{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-family:var(--f-mono);font-size:14px;color:var(--mint);background:rgba(var(--accent-rgb),.1);border:1px solid rgba(var(--accent-rgb),.28);}
 section{scroll-margin-top:80px}
 .card{padding:20px;display:flex;flex-direction:column;gap:14px}
 .card p{margin:0;color:var(--muted)}
@@ -115,25 +101,17 @@ section{scroll-margin-top:80px}
     <p class="lede">A smooth-motion mobile camera slider designed to move a smartphone horizontally along a straight track for stable, cinematic video recording.</p>
     <div class="device" id="device">
       <img alt="Photo of the Camera Slider" src="data:image/webp;base64,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">
-      <span class="tag" id="stepTag">Product prototype</span>
+      <span class="tag">Product prototype</span>
     </div>
   </section>
 
   <section id="how" class="monitor glass" aria-labelledby="how-h">
-    <div class="row">
-      <div>
-        <h2 id="how-h">How it works</h2>
-        <p class="sub"><span id="stepCount">4 steps</span> · tap a step or press play</p>
-      </div>
-      <button class="btn" id="play" type="button" aria-pressed="false">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><span>Play</span>
-      </button>
-    </div>
+    <h2 id="how-h">How it works</h2>
     <ol class="steps" id="steps">
-      <li class="step" data-i="0"><span class="num">01</span><div><p>The mobile phone is securely mounted on the holder attached to the slider.</p><span class="bar"><i></i></span></div></li>
-      <li class="step" data-i="1"><span class="num">02</span><div><p>The device moves the phone horizontally along the track.</p><span class="bar"><i></i></span></div></li>
-      <li class="step" data-i="2"><span class="num">03</span><div><p>The movement can be controlled to glide left or right at the desired pace.</p><span class="bar"><i></i></span></div></li>
-      <li class="step" data-i="3"><span class="num">04</span><div><p>The smooth motion helps capture steady panning, tracking, and reveal shots with minimal camera shake.</p><span class="bar"><i></i></span></div></li>
+      <li class="step"><span class="num">01</span><div><p>The mobile phone is securely mounted on the holder attached to the slider.</p></div></li>
+      <li class="step"><span class="num">02</span><div><p>The device moves the phone horizontally along the track.</p></div></li>
+      <li class="step"><span class="num">03</span><div><p>The movement can be controlled to glide left or right at the desired pace.</p></div></li>
+      <li class="step"><span class="num">04</span><div><p>The smooth motion helps capture steady panning, tracking, and reveal shots with minimal camera shake.</p></div></li>
     </ol>
   </section>
 
@@ -204,55 +182,6 @@ section{scroll-margin-top:80px}
 
 <script>
 (function(){
-  const STEP_MS = 2600;
-  const steps = [...document.querySelectorAll('.step')];
-  const btn = document.getElementById('play');
-  const tag = document.getElementById('stepTag');
-  const device = document.getElementById('device');
-  const label = btn.querySelector('span');
-  let cur = -1, timer = null, raf = null, t0 = 0;
-
-  function show(i){
-    cur = i;
-    steps.forEach((s, k) => {
-      s.classList.toggle('active', k === i);
-      s.classList.toggle('done', k < i);
-      s.querySelector('.bar i').style.width = '0';
-    });
-    tag.textContent = 'Step ' + (i + 1) + ' of ' + steps.length;
-    device.classList.remove('pulse'); void device.offsetWidth; device.classList.add('pulse');
-    setTimeout(() => device.classList.remove('pulse'), 600);
-  }
-  function tick(now){
-    const k = Math.min(1, (now - t0) / STEP_MS);
-    if (steps[cur]) steps[cur].querySelector('.bar i').style.width = (k * 100) + '%';
-    if (k >= 1){
-      if (cur + 1 < steps.length){ show(cur + 1); t0 = now; }
-      else { stop(true); return; }
-    }
-    raf = requestAnimationFrame(tick);
-  }
-  function play(){
-    if (cur < 0 || cur >= steps.length - 1) show(0);
-    t0 = performance.now();
-    btn.setAttribute('aria-pressed', 'true'); label.textContent = 'Pause';
-    raf = requestAnimationFrame(tick);
-  }
-  function stop(finished){
-    cancelAnimationFrame(raf); raf = null;
-    btn.setAttribute('aria-pressed', 'false');
-    label.textContent = finished ? 'Replay' : 'Play';
-    if (finished){ steps.forEach(s => s.classList.add('done')); tag.textContent = 'All ' + steps.length + ' steps done'; }
-  }
-  btn.addEventListener('click', () => raf ? stop(false) : play());
-  steps.forEach((s, k) => {
-    s.tabIndex = 0;
-    const go = () => { if (raf) stop(false); show(k); label.textContent = 'Play'; };
-    s.addEventListener('click', go);
-    s.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(); } });
-  });
-  if (steps.length) show(0);
-
   const tabs = [...document.querySelectorAll('.tab:not(.ext)')];
   const secs = tabs.map(t => document.querySelector(t.getAttribute('href')));
   if ('IntersectionObserver' in window){

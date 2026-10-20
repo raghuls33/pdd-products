@@ -50,31 +50,17 @@ h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,8vw,36px);l
 h1 span{color:var(--mint)}
 .lede{margin:0;color:var(--muted);max-width:44ch}
 .device{position:relative;border-radius:var(--r-md);overflow:hidden;aspect-ratio:1/1;max-width:100%;background:var(--photo);border:1px solid var(--stroke-soft)}
-.device img{width:100%;height:100%;object-fit:contain;display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
-.device.pulse img{transform:scale(1.04)}
+.device img{width:100%;height:100%;object-fit:contain;display:block}
 .device .tag{position:absolute;left:12px;bottom:12px;z-index:2;font-family:var(--f-mono);font-size:11px;color:var(--fg);padding:6px 10px;border-radius:10px;background:rgba(6,20,26,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--stroke);max-width:calc(100% - 24px)}
 .monitor{padding:20px;display:flex;flex-direction:column;gap:12px}
-.row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.row>div{min-width:0}
 h2{font-family:var(--f-display);font-weight:500;font-size:18px;letter-spacing:-.01em;margin:0;text-wrap:balance}
-.sub{font-size:13px;color:var(--muted);margin:0}
-.btn{appearance:none;flex:none;border:1px solid var(--stroke);background:rgba(var(--accent-rgb),.16);color:var(--fg);font:600 14px var(--f-body);padding:12px 18px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s,background .2s}
-.btn:hover{background:rgba(var(--accent-rgb),.26)}
-.btn:active{transform:scale(.97)}
-.btn:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
-.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
-.step{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;padding:12px;border-radius:var(--r-sm);border:1px solid transparent;cursor:pointer;transition:background .3s,border-color .3s}
-.step:hover{background:rgba(255,255,255,.03)}
-.step:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
-.step p{margin:0;color:var(--muted);font-size:14px;transition:color .3s}
-.step .bar{display:block;height:3px;margin-top:10px;border-radius:3px;background:var(--stroke-soft);overflow:hidden;opacity:0;transition:opacity .3s}
-.step .bar i{display:block;height:100%;width:0;background:var(--mint)}
-.step.active{background:rgba(var(--accent-rgb),.09);border-color:rgba(var(--accent-rgb),.3)}
-.step.active p{color:var(--fg)}
-.step.active .bar{opacity:1}
-.step.active .num{background:var(--mint);color:var(--ink)}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;padding:10px 0;position:relative}
+.step:not(:last-child)::before{content:"";position:absolute;left:19px;top:52px;bottom:-6px;width:2px;background:linear-gradient(var(--stroke),transparent)}
+.step p{margin:0;padding-top:9px;color:var(--fg);font-size:14px}
+.num{background:var(--mint);color:var(--ink)}
 .step.done .num{border-color:rgba(var(--accent-rgb),.5)}
-.num{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-family:var(--f-mono);font-size:14px;color:var(--mint);background:rgba(var(--accent-rgb),.1);border:1px solid rgba(var(--accent-rgb),.28);transition:background .3s,color .3s}
+.num{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-family:var(--f-mono);font-size:14px;color:var(--mint);background:rgba(var(--accent-rgb),.1);border:1px solid rgba(var(--accent-rgb),.28);}
 section{scroll-margin-top:80px}
 .card{padding:20px;display:flex;flex-direction:column;gap:14px}
 .card p{margin:0;color:var(--muted)}
@@ -115,25 +101,17 @@ section{scroll-margin-top:80px}
     <p class="lede">The OT (Operation Theater) Environment Monitoring Device monitors system designed to measure and display critical ambient conditions in operating theaters.</p>
     <div class="device" id="device">
       <img alt="Photo of the OT EnviroCare" src="data:image/webp;base64,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">
-      <span class="tag" id="stepTag">Product prototype</span>
+      <span class="tag">Product prototype</span>
     </div>
   </section>
 
   <section id="how" class="monitor glass" aria-labelledby="how-h">
-    <div class="row">
-      <div>
-        <h2 id="how-h">How it works</h2>
-        <p class="sub"><span id="stepCount">4 steps</span> · tap a step or press play</p>
-      </div>
-      <button class="btn" id="play" type="button" aria-pressed="false">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><span>Play</span>
-      </button>
-    </div>
+    <h2 id="how-h">How it works</h2>
     <ol class="steps" id="steps">
-      <li class="step" data-i="0"><span class="num">01</span><div><p>The device continuously monitors the temperature and humidity of the surrounding environment.</p><span class="bar"><i></i></span></div></li>
-      <li class="step" data-i="1"><span class="num">02</span><div><p>It detects airborne dust particles to assess air quality.</p><span class="bar"><i></i></span></div></li>
-      <li class="step" data-i="2"><span class="num">03</span><div><p>The system processes the collected environmental data in real time.</p><span class="bar"><i></i></span></div></li>
-      <li class="step" data-i="3"><span class="num">04</span><div><p>The measured values are displayed on the screen for easy monitoring.</p><span class="bar"><i></i></span></div></li>
+      <li class="step"><span class="num">01</span><div><p>The device continuously monitors the temperature and humidity of the surrounding environment.</p></div></li>
+      <li class="step"><span class="num">02</span><div><p>It detects airborne dust particles to assess air quality.</p></div></li>
+      <li class="step"><span class="num">03</span><div><p>The system processes the collected environmental data in real time.</p></div></li>
+      <li class="step"><span class="num">04</span><div><p>The measured values are displayed on the screen for easy monitoring.</p></div></li>
     </ol>
   </section>
 
@@ -188,55 +166,6 @@ section{scroll-margin-top:80px}
 
 <script>
 (function(){
-  const STEP_MS = 2600;
-  const steps = [...document.querySelectorAll('.step')];
-  const btn = document.getElementById('play');
-  const tag = document.getElementById('stepTag');
-  const device = document.getElementById('device');
-  const label = btn.querySelector('span');
-  let cur = -1, timer = null, raf = null, t0 = 0;
-
-  function show(i){
-    cur = i;
-    steps.forEach((s, k) => {
-      s.classList.toggle('active', k === i);
-      s.classList.toggle('done', k < i);
-      s.querySelector('.bar i').style.width = '0';
-    });
-    tag.textContent = 'Step ' + (i + 1) + ' of ' + steps.length;
-    device.classList.remove('pulse'); void device.offsetWidth; device.classList.add('pulse');
-    setTimeout(() => device.classList.remove('pulse'), 600);
-  }
-  function tick(now){
-    const k = Math.min(1, (now - t0) / STEP_MS);
-    if (steps[cur]) steps[cur].querySelector('.bar i').style.width = (k * 100) + '%';
-    if (k >= 1){
-      if (cur + 1 < steps.length){ show(cur + 1); t0 = now; }
-      else { stop(true); return; }
-    }
-    raf = requestAnimationFrame(tick);
-  }
-  function play(){
-    if (cur < 0 || cur >= steps.length - 1) show(0);
-    t0 = performance.now();
-    btn.setAttribute('aria-pressed', 'true'); label.textContent = 'Pause';
-    raf = requestAnimationFrame(tick);
-  }
-  function stop(finished){
-    cancelAnimationFrame(raf); raf = null;
-    btn.setAttribute('aria-pressed', 'false');
-    label.textContent = finished ? 'Replay' : 'Play';
-    if (finished){ steps.forEach(s => s.classList.add('done')); tag.textContent = 'All ' + steps.length + ' steps done'; }
-  }
-  btn.addEventListener('click', () => raf ? stop(false) : play());
-  steps.forEach((s, k) => {
-    s.tabIndex = 0;
-    const go = () => { if (raf) stop(false); show(k); label.textContent = 'Play'; };
-    s.addEventListener('click', go);
-    s.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(); } });
-  });
-  if (steps.length) show(0);
-
   const tabs = [...document.querySelectorAll('.tab:not(.ext)')];
   const secs = tabs.map(t => document.querySelector(t.getAttribute('href')));
   if ('IntersectionObserver' in window){

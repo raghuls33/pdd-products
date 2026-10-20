@@ -50,31 +50,17 @@ h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,8vw,36px);l
 h1 span{color:var(--mint)}
 .lede{margin:0;color:var(--muted);max-width:44ch}
 .device{position:relative;border-radius:var(--r-md);overflow:hidden;aspect-ratio:1/1;max-width:100%;background:var(--photo);border:1px solid var(--stroke-soft)}
-.device img{width:100%;height:100%;object-fit:contain;display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
-.device.pulse img{transform:scale(1.04)}
+.device img{width:100%;height:100%;object-fit:contain;display:block}
 .device .tag{position:absolute;left:12px;bottom:12px;z-index:2;font-family:var(--f-mono);font-size:11px;color:var(--fg);padding:6px 10px;border-radius:10px;background:rgba(6,20,26,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--stroke);max-width:calc(100% - 24px)}
 .monitor{padding:20px;display:flex;flex-direction:column;gap:12px}
-.row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.row>div{min-width:0}
 h2{font-family:var(--f-display);font-weight:500;font-size:18px;letter-spacing:-.01em;margin:0;text-wrap:balance}
-.sub{font-size:13px;color:var(--muted);margin:0}
-.btn{appearance:none;flex:none;border:1px solid var(--stroke);background:rgba(var(--accent-rgb),.16);color:var(--fg);font:600 14px var(--f-body);padding:12px 18px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s,background .2s}
-.btn:hover{background:rgba(var(--accent-rgb),.26)}
-.btn:active{transform:scale(.97)}
-.btn:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
-.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
-.step{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;padding:12px;border-radius:var(--r-sm);border:1px solid transparent;cursor:pointer;transition:background .3s,border-color .3s}
-.step:hover{background:rgba(255,255,255,.03)}
-.step:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
-.step p{margin:0;color:var(--muted);font-size:14px;transition:color .3s}
-.step .bar{display:block;height:3px;margin-top:10px;border-radius:3px;background:var(--stroke-soft);overflow:hidden;opacity:0;transition:opacity .3s}
-.step .bar i{display:block;height:100%;width:0;background:var(--mint)}
-.step.active{background:rgba(var(--accent-rgb),.09);border-color:rgba(var(--accent-rgb),.3)}
-.step.active p{color:var(--fg)}
-.step.active .bar{opacity:1}
-.step.active .num{background:var(--mint);color:var(--ink)}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;padding:10px 0;position:relative}
+.step:not(:last-child)::before{content:"";position:absolute;left:19px;top:52px;bottom:-6px;width:2px;background:linear-gradient(var(--stroke),transparent)}
+.step p{margin:0;padding-top:9px;color:var(--fg);font-size:14px}
+.num{background:var(--mint);color:var(--ink)}
 .step.done .num{border-color:rgba(var(--accent-rgb),.5)}
-.num{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-family:var(--f-mono);font-size:14px;color:var(--mint);background:rgba(var(--accent-rgb),.1);border:1px solid rgba(var(--accent-rgb),.28);transition:background .3s,color .3s}
+.num{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-family:var(--f-mono);font-size:14px;color:var(--mint);background:rgba(var(--accent-rgb),.1);border:1px solid rgba(var(--accent-rgb),.28);}
 section{scroll-margin-top:80px}
 .card{padding:20px;display:flex;flex-direction:column;gap:14px}
 .card p{margin:0;color:var(--muted)}
@@ -115,24 +101,16 @@ section{scroll-margin-top:80px}
     <p class="lede">An automatic ball launching machine designed to launch balls for consistent and convenient practice.</p>
     <div class="device" id="device">
       <img alt="Photo of the Ball Thrower" src="data:image/webp;base64,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">
-      <span class="tag" id="stepTag">Product prototype</span>
+      <span class="tag">Product prototype</span>
     </div>
   </section>
 
   <section id="how" class="monitor glass" aria-labelledby="how-h">
-    <div class="row">
-      <div>
-        <h2 id="how-h">How it works</h2>
-        <p class="sub"><span id="stepCount">3 steps</span> · tap a step or press play</p>
-      </div>
-      <button class="btn" id="play" type="button" aria-pressed="false">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><span>Play</span>
-      </button>
-    </div>
+    <h2 id="how-h">How it works</h2>
     <ol class="steps" id="steps">
-      <li class="step" data-i="0"><span class="num">01</span><div><p>The user loads multiple balls into the machine&#x27;s storage compartment.</p><span class="bar"><i></i></span></div></li>
-      <li class="step" data-i="1"><span class="num">02</span><div><p>The machine feeds the balls automatically into the launching mechanism.</p><span class="bar"><i></i></span></div></li>
-      <li class="step" data-i="2"><span class="num">03</span><div><p>The balls are launched at adjustable speeds and distances to suit different practice needs.</p><span class="bar"><i></i></span></div></li>
+      <li class="step"><span class="num">01</span><div><p>The user loads multiple balls into the machine&#x27;s storage compartment.</p></div></li>
+      <li class="step"><span class="num">02</span><div><p>The machine feeds the balls automatically into the launching mechanism.</p></div></li>
+      <li class="step"><span class="num">03</span><div><p>The balls are launched at adjustable speeds and distances to suit different practice needs.</p></div></li>
     </ol>
   </section>
 
@@ -189,55 +167,6 @@ section{scroll-margin-top:80px}
 
 <script>
 (function(){
-  const STEP_MS = 2600;
-  const steps = [...document.querySelectorAll('.step')];
-  const btn = document.getElementById('play');
-  const tag = document.getElementById('stepTag');
-  const device = document.getElementById('device');
-  const label = btn.querySelector('span');
-  let cur = -1, timer = null, raf = null, t0 = 0;
-
-  function show(i){
-    cur = i;
-    steps.forEach((s, k) => {
-      s.classList.toggle('active', k === i);
-      s.classList.toggle('done', k < i);
-      s.querySelector('.bar i').style.width = '0';
-    });
-    tag.textContent = 'Step ' + (i + 1) + ' of ' + steps.length;
-    device.classList.remove('pulse'); void device.offsetWidth; device.classList.add('pulse');
-    setTimeout(() => device.classList.remove('pulse'), 600);
-  }
-  function tick(now){
-    const k = Math.min(1, (now - t0) / STEP_MS);
-    if (steps[cur]) steps[cur].querySelector('.bar i').style.width = (k * 100) + '%';
-    if (k >= 1){
-      if (cur + 1 < steps.length){ show(cur + 1); t0 = now; }
-      else { stop(true); return; }
-    }
-    raf = requestAnimationFrame(tick);
-  }
-  function play(){
-    if (cur < 0 || cur >= steps.length - 1) show(0);
-    t0 = performance.now();
-    btn.setAttribute('aria-pressed', 'true'); label.textContent = 'Pause';
-    raf = requestAnimationFrame(tick);
-  }
-  function stop(finished){
-    cancelAnimationFrame(raf); raf = null;
-    btn.setAttribute('aria-pressed', 'false');
-    label.textContent = finished ? 'Replay' : 'Play';
-    if (finished){ steps.forEach(s => s.classList.add('done')); tag.textContent = 'All ' + steps.length + ' steps done'; }
-  }
-  btn.addEventListener('click', () => raf ? stop(false) : play());
-  steps.forEach((s, k) => {
-    s.tabIndex = 0;
-    const go = () => { if (raf) stop(false); show(k); label.textContent = 'Play'; };
-    s.addEventListener('click', go);
-    s.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(); } });
-  });
-  if (steps.length) show(0);
-
   const tabs = [...document.querySelectorAll('.tab:not(.ext)')];
   const secs = tabs.map(t => document.querySelector(t.getAttribute('href')));
   if ('IntersectionObserver' in window){

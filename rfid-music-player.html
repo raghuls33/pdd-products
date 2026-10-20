@@ -50,31 +50,17 @@ h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,8vw,36px);l
 h1 span{color:var(--mint)}
 .lede{margin:0;color:var(--muted);max-width:44ch}
 .device{position:relative;border-radius:var(--r-md);overflow:hidden;aspect-ratio:1/1;max-width:100%;background:var(--photo);border:1px solid var(--stroke-soft)}
-.device img{width:100%;height:100%;object-fit:contain;display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
-.device.pulse img{transform:scale(1.04)}
+.device img{width:100%;height:100%;object-fit:contain;display:block}
 .device .tag{position:absolute;left:12px;bottom:12px;z-index:2;font-family:var(--f-mono);font-size:11px;color:var(--fg);padding:6px 10px;border-radius:10px;background:rgba(6,20,26,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--stroke);max-width:calc(100% - 24px)}
 .monitor{padding:20px;display:flex;flex-direction:column;gap:12px}
-.row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.row>div{min-width:0}
 h2{font-family:var(--f-display);font-weight:500;font-size:18px;letter-spacing:-.01em;margin:0;text-wrap:balance}
-.sub{font-size:13px;color:var(--muted);margin:0}
-.btn{appearance:none;flex:none;border:1px solid var(--stroke);background:rgba(var(--accent-rgb),.16);color:var(--fg);font:600 14px var(--f-body);padding:12px 18px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s,background .2s}
-.btn:hover{background:rgba(var(--accent-rgb),.26)}
-.btn:active{transform:scale(.97)}
-.btn:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
-.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
-.step{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;padding:12px;border-radius:var(--r-sm);border:1px solid transparent;cursor:pointer;transition:background .3s,border-color .3s}
-.step:hover{background:rgba(255,255,255,.03)}
-.step:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
-.step p{margin:0;color:var(--muted);font-size:14px;transition:color .3s}
-.step .bar{display:block;height:3px;margin-top:10px;border-radius:3px;background:var(--stroke-soft);overflow:hidden;opacity:0;transition:opacity .3s}
-.step .bar i{display:block;height:100%;width:0;background:var(--mint)}
-.step.active{background:rgba(var(--accent-rgb),.09);border-color:rgba(var(--accent-rgb),.3)}
-.step.active p{color:var(--fg)}
-.step.active .bar{opacity:1}
-.step.active .num{background:var(--mint);color:var(--ink)}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;padding:10px 0;position:relative}
+.step:not(:last-child)::before{content:"";position:absolute;left:19px;top:52px;bottom:-6px;width:2px;background:linear-gradient(var(--stroke),transparent)}
+.step p{margin:0;padding-top:9px;color:var(--fg);font-size:14px}
+.num{background:var(--mint);color:var(--ink)}
 .step.done .num{border-color:rgba(var(--accent-rgb),.5)}
-.num{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-family:var(--f-mono);font-size:14px;color:var(--mint);background:rgba(var(--accent-rgb),.1);border:1px solid rgba(var(--accent-rgb),.28);transition:background .3s,color .3s}
+.num{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-family:var(--f-mono);font-size:14px;color:var(--mint);background:rgba(var(--accent-rgb),.1);border:1px solid rgba(var(--accent-rgb),.28);}
 section{scroll-margin-top:80px}
 .card{padding:20px;display:flex;flex-direction:column;gap:14px}
 .card p{margin:0;color:var(--muted)}
@@ -115,25 +101,17 @@ section{scroll-margin-top:80px}
     <p class="lede">The RFID Music Card Player is an interactive audio device designed to play music and stories through contactless RFID card recognition.</p>
     <div class="device" id="device">
       <img alt="Photo of the RFID Music Player" src="data:image/webp;base64,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">
-      <span class="tag" id="stepTag">Product prototype</span>
+      <span class="tag">Product prototype</span>
     </div>
   </section>
 
   <section id="how" class="monitor glass" aria-labelledby="how-h">
-    <div class="row">
-      <div>
-        <h2 id="how-h">How it works</h2>
-        <p class="sub"><span id="stepCount">4 steps</span> · tap a step or press play</p>
-      </div>
-      <button class="btn" id="play" type="button" aria-pressed="false">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><span>Play</span>
-      </button>
-    </div>
+    <h2 id="how-h">How it works</h2>
     <ol class="steps" id="steps">
-      <li class="step" data-i="0"><span class="num">01</span><div><p>The user selects an RFID music card containing a song or audio recording.</p><span class="bar"><i></i></span></div></li>
-      <li class="step" data-i="1"><span class="num">02</span><div><p>The card is placed on the designated area of the player.</p><span class="bar"><i></i></span></div></li>
-      <li class="step" data-i="2"><span class="num">03</span><div><p>The player identifies the card and retrieves the corresponding audio.</p><span class="bar"><i></i></span></div></li>
-      <li class="step" data-i="3"><span class="num">04</span><div><p>The selected music or story plays through the built-in speakers.</p><span class="bar"><i></i></span></div></li>
+      <li class="step"><span class="num">01</span><div><p>The user selects an RFID music card containing a song or audio recording.</p></div></li>
+      <li class="step"><span class="num">02</span><div><p>The card is placed on the designated area of the player.</p></div></li>
+      <li class="step"><span class="num">03</span><div><p>The player identifies the card and retrieves the corresponding audio.</p></div></li>
+      <li class="step"><span class="num">04</span><div><p>The selected music or story plays through the built-in speakers.</p></div></li>
     </ol>
   </section>
 
@@ -200,55 +178,6 @@ section{scroll-margin-top:80px}
 
 <script>
 (function(){
-  const STEP_MS = 2600;
-  const steps = [...document.querySelectorAll('.step')];
-  const btn = document.getElementById('play');
-  const tag = document.getElementById('stepTag');
-  const device = document.getElementById('device');
-  const label = btn.querySelector('span');
-  let cur = -1, timer = null, raf = null, t0 = 0;
-
-  function show(i){
-    cur = i;
-    steps.forEach((s, k) => {
-      s.classList.toggle('active', k === i);
-      s.classList.toggle('done', k < i);
-      s.querySelector('.bar i').style.width = '0';
-    });
-    tag.textContent = 'Step ' + (i + 1) + ' of ' + steps.length;
-    device.classList.remove('pulse'); void device.offsetWidth; device.classList.add('pulse');
-    setTimeout(() => device.classList.remove('pulse'), 600);
-  }
-  function tick(now){
-    const k = Math.min(1, (now - t0) / STEP_MS);
-    if (steps[cur]) steps[cur].querySelector('.bar i').style.width = (k * 100) + '%';
-    if (k >= 1){
-      if (cur + 1 < steps.length){ show(cur + 1); t0 = now; }
-      else { stop(true); return; }
-    }
-    raf = requestAnimationFrame(tick);
-  }
-  function play(){
-    if (cur < 0 || cur >= steps.length - 1) show(0);
-    t0 = performance.now();
-    btn.setAttribute('aria-pressed', 'true'); label.textContent = 'Pause';
-    raf = requestAnimationFrame(tick);
-  }
-  function stop(finished){
-    cancelAnimationFrame(raf); raf = null;
-    btn.setAttribute('aria-pressed', 'false');
-    label.textContent = finished ? 'Replay' : 'Play';
-    if (finished){ steps.forEach(s => s.classList.add('done')); tag.textContent = 'All ' + steps.length + ' steps done'; }
-  }
-  btn.addEventListener('click', () => raf ? stop(false) : play());
-  steps.forEach((s, k) => {
-    s.tabIndex = 0;
-    const go = () => { if (raf) stop(false); show(k); label.textContent = 'Play'; };
-    s.addEventListener('click', go);
-    s.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(); } });
-  });
-  if (steps.length) show(0);
-
   const tabs = [...document.querySelectorAll('.tab:not(.ext)')];
   const secs = tabs.map(t => document.querySelector(t.getAttribute('href')));
   if ('IntersectionObserver' in window){
