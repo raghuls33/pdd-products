@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="A touchless hand sanitizing system designed to detect a user&#x27;s hands automatically and dispense a fine disinfectant mist for effective hand sanitization.">
+<title>Hand Sanitizer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{--mint:#9ff0e6;--accent-rgb:159,240,230}
+/* Layout: a single phone-width column of frosted glass panels over slow aurora light, app-style tab bar pinned to the bottom. Accent (--mint) is set per product category. */
+:root{
+  color-scheme: dark;
+  --ink:#06141a; --ink-2:#0b2229;
+  --glow:#2fb9c9;
+  --fg:#e9f6f3; --muted:#93b3ad;
+  --glass:rgba(220,255,245,.07); --glass-hi:rgba(220,255,245,.12);
+  --stroke:rgba(200,255,240,.16); --stroke-soft:rgba(200,255,240,.08);
+  --photo:#eef2f1;
+  --f-display:"Unbounded","Manrope",system-ui,sans-serif;
+  --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --r-lg:28px; --r-md:20px; --r-sm:14px;
+}
+*{box-sizing:border-box}
+html,body{background:var(--ink)}
+body{color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.aurora{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.aurora i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;animation:drift 22s ease-in-out infinite alternate}
+.aurora i:nth-child(1){width:420px;height:420px;background:var(--glow);top:-120px;left:-140px}
+.aurora i:nth-child(2){width:360px;height:360px;background:var(--mint);top:38%;right:-180px;opacity:.3;animation-duration:28s}
+.aurora i:nth-child(3){width:300px;height:300px;background:#1f6f8b;bottom:-80px;left:-60px;animation-duration:34s}
+.aurora::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,transparent 40%,var(--ink) 95%)}
+@keyframes drift{to{transform:translate(60px,80px) scale(1.15)}}
+.app{position:relative;z-index:1;max-width:460px;margin:0 auto;padding-inline:16px;padding-block:14px 120px;display:flex;flex-direction:column;gap:18px}
+.glass{background:linear-gradient(160deg,var(--glass-hi),var(--glass));border:1px solid var(--stroke);border-radius:var(--r-lg);backdrop-filter:blur(22px) saturate(140%);-webkit-backdrop-filter:blur(22px) saturate(140%);box-shadow:0 20px 50px -24px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.08)}
+.topbar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 16px;border-radius:999px}
+.brand{font-family:var(--f-display);font-weight:500;font-size:12px;letter-spacing:.04em;text-decoration:none;white-space:nowrap}
+.brand:hover{color:var(--mint)}
+.brand:focus-visible{outline:2px solid var(--mint);outline-offset:4px;border-radius:6px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;background:rgba(var(--accent-rgb),.12);color:var(--mint);border:1px solid rgba(var(--accent-rgb),.28);white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.dot{flex:none;width:7px;height:7px;border-radius:50%;background:currentColor;animation:ping 2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(var(--accent-rgb),.5)}100%{box-shadow:0 0 0 8px rgba(var(--accent-rgb),0)}}
+.hero{padding:22px 20px 20px;display:flex;flex-direction:column;gap:16px;overflow:hidden;position:relative}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,8vw,36px);line-height:1.06;letter-spacing:-.02em;margin:0;text-wrap:balance;overflow-wrap:anywhere}
+h1 span{color:var(--mint)}
+.lede{margin:0;color:var(--muted);max-width:44ch}
+.device{position:relative;border-radius:var(--r-md);overflow:hidden;aspect-ratio:1/1;max-width:100%;background:var(--photo);border:1px solid var(--stroke-soft)}
+.device img{width:100%;height:100%;object-fit:contain;display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.device.pulse img{transform:scale(1.04)}
+.device .tag{position:absolute;left:12px;bottom:12px;z-index:2;font-family:var(--f-mono);font-size:11px;color:var(--fg);padding:6px 10px;border-radius:10px;background:rgba(6,20,26,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--stroke);max-width:calc(100% - 24px)}
+.monitor{padding:20px;display:flex;flex-direction:column;gap:12px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.row>div{min-width:0}
+h2{font-family:var(--f-display);font-weight:500;font-size:18px;letter-spacing:-.01em;margin:0;text-wrap:balance}
+.sub{font-size:13px;color:var(--muted);margin:0}
+.btn{appearance:none;flex:none;border:1px solid var(--stroke);background:rgba(var(--accent-rgb),.16);color:var(--fg);font:600 14px var(--f-body);padding:12px 18px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s,background .2s}
+.btn:hover{background:rgba(var(--accent-rgb),.26)}
+.btn:active{transform:scale(.97)}
+.btn:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.step{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;padding:12px;border-radius:var(--r-sm);border:1px solid transparent;cursor:pointer;transition:background .3s,border-color .3s}
+.step:hover{background:rgba(255,255,255,.03)}
+.step:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+.step p{margin:0;color:var(--muted);font-size:14px;transition:color .3s}
+.step .bar{display:block;height:3px;margin-top:10px;border-radius:3px;background:var(--stroke-soft);overflow:hidden;opacity:0;transition:opacity .3s}
+.step .bar i{display:block;height:100%;width:0;background:var(--mint)}
+.step.active{background:rgba(var(--accent-rgb),.09);border-color:rgba(var(--accent-rgb),.3)}
+.step.active p{color:var(--fg)}
+.step.active .bar{opacity:1}
+.step.active .num{background:var(--mint);color:var(--ink)}
+.step.done .num{border-color:rgba(var(--accent-rgb),.5)}
+.num{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-family:var(--f-mono);font-size:14px;color:var(--mint);background:rgba(var(--accent-rgb),.1);border:1px solid rgba(var(--accent-rgb),.28);transition:background .3s,color .3s}
+section{scroll-margin-top:80px}
+.card{padding:20px;display:flex;flex-direction:column;gap:14px}
+.card p{margin:0;color:var(--muted)}
+.card p.big{color:var(--fg);font-size:16px;line-height:1.6}
+.stack{display:flex;flex-direction:column;gap:12px}
+.features{display:grid;grid-template-columns:1fr;gap:12px}
+.feat{padding:16px 18px;display:grid;grid-template-columns:48px 1fr;gap:14px;align-items:center;border-radius:var(--r-md)}
+.feat .ico{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(140deg,rgba(var(--accent-rgb),.25),rgba(47,185,201,.08));border:1px solid var(--stroke)}
+.feat .ico svg{width:24px;height:24px;stroke:var(--mint);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.feat h3{margin:0;font-size:15px;font-weight:600;line-height:1.4}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--stroke);transition:background .2s}
+.chip:hover{background:rgba(var(--accent-rgb),.14)}
+.benefits{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.benefits li{display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start;font-size:14px}
+.benefits svg{width:22px;height:22px;stroke:var(--mint);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-top:1px}
+.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:10;width:min(428px,calc(100% - 32px));display:grid;grid-template-columns:repeat(4,1fr);padding:8px;border-radius:26px}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;border-radius:18px;color:var(--muted);text-decoration:none;font-size:11px;font-weight:600;transition:all .25s}
+.tab svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab.active{color:var(--ink);background:var(--mint);box-shadow:0 6px 18px -6px rgba(var(--accent-rgb),.7)}
+.tab:hover:not(.active){color:var(--fg)}
+.tab:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body style="margin:0">
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<main class="app">
+  <header class="topbar glass">
+    <a class="brand" href="./">← ALL PRODUCTS</a>
+    <span class="pill"><span class="dot"></span>Hygiene &amp; vending</span>
+  </header>
+
+  <section id="overview" class="hero glass">
+    <span class="eyebrow">Hygiene &amp; vending · Product design</span>
+    <h1>Hand <span>Sanitizer</span></h1>
+    <p class="lede">A touchless hand sanitizing system designed to detect a user&#x27;s hands automatically and dispense a fine disinfectant mist for effective hand sanitization.</p>
+    <div class="device" id="device">
+      <img alt="Photo of the Hand Sanitizer" src="data:image/webp;base64,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">
+      <span class="tag" id="stepTag">Product prototype</span>
+    </div>
+  </section>
+
+  <section id="how" class="monitor glass" aria-labelledby="how-h">
+    <div class="row">
+      <div>
+        <h2 id="how-h">How it works</h2>
+        <p class="sub"><span id="stepCount">4 steps</span> · tap a step or press play</p>
+      </div>
+      <button class="btn" id="play" type="button" aria-pressed="false">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><span>Play</span>
+      </button>
+    </div>
+    <ol class="steps" id="steps">
+      <li class="step" data-i="0"><span class="num">01</span><div><p>The user places their hands near the device.</p><span class="bar"><i></i></span></div></li>
+      <li class="step" data-i="1"><span class="num">02</span><div><p>The ultrasonic sensor detects the presence of the hands.</p><span class="bar"><i></i></span></div></li>
+      <li class="step" data-i="2"><span class="num">03</span><div><p>The system automatically activates the mist generation mechanism.</p><span class="bar"><i></i></span></div></li>
+      <li class="step" data-i="3"><span class="num">04</span><div><p>A fine disinfectant mist is dispersed with the help of an airflow system to provide convenient hand coverage.</p><span class="bar"><i></i></span></div></li>
+    </ol>
+  </section>
+
+  <section class="card glass" aria-labelledby="what-h">
+    <span class="eyebrow" id="what-h">What it is</span>
+    <p class="big">The Touchless Hand Sanitizing System uses an ultrasonic sensor to detect hands and automatically dispense disinfectant mist without physical contact. It provides convenient, hygienic sanitization while reducing cross-contamination and minimizing disinfectant wastage.</p>
+  </section>
+
+  <section id="features" aria-labelledby="feat-h" class="stack">
+    <h2 id="feat-h" style="padding-inline:6px">Key features</h2>
+    <div class="features">
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>
+        <div><h3>Touch-free hand detection and sanitization</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <div><h3>Automatic disinfectant mist dispensing</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        <div><h3>Fine mist distribution for hand coverage</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M4 17l6-6 4 4 6-8"/><path d="M14 7h6v6"/></svg></span>
+        <div><h3>Hygienic operation with reduced cross-contamination</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span>
+        <div><h3>Efficient use of disinfectant with minimal wastage</h3></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card glass" aria-labelledby="who-h">
+    <h2 id="who-h">Where it's used</h2>
+    <p>Hospitals, clinics, educational institutions, corporate offices, public entryways, commercial complexes, healthcare facilities, and other high-traffic areas where maintaining hand hygiene is essential.</p>
+    <h2>Benefits</h2>
+    <ul class="benefits">
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Promotes safe and hygienic hand sanitization</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Reduces the risk of cross-contamination by eliminating physical contact</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Provides quick and convenient disinfection</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Helps maintain hygiene in public and shared spaces</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Minimizes disinfectant wastage through controlled dispensing</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Supports infection prevention and regular hand hygiene practices</span></li>
+    </ul>
+  </section>
+</main>
+
+<nav class="tabbar glass" aria-label="Sections">
+  <a class="tab active" href="#overview"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Overview</a>
+  <a class="tab" href="#how"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>How</a>
+  <a class="tab" href="#features"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.8 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg>Features</a>
+  <a class="tab ext" href="./"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>All</a>
+</nav>
+
+<script>
+(function(){
+  const STEP_MS = 2600;
+  const steps = [...document.querySelectorAll('.step')];
+  const btn = document.getElementById('play');
+  const tag = document.getElementById('stepTag');
+  const device = document.getElementById('device');
+  const label = btn.querySelector('span');
+  let cur = -1, timer = null, raf = null, t0 = 0;
+
+  function show(i){
+    cur = i;
+    steps.forEach((s, k) => {
+      s.classList.toggle('active', k === i);
+      s.classList.toggle('done', k < i);
+      s.querySelector('.bar i').style.width = '0';
+    });
+    tag.textContent = 'Step ' + (i + 1) + ' of ' + steps.length;
+    device.classList.remove('pulse'); void device.offsetWidth; device.classList.add('pulse');
+    setTimeout(() => device.classList.remove('pulse'), 600);
+  }
+  function tick(now){
+    const k = Math.min(1, (now - t0) / STEP_MS);
+    if (steps[cur]) steps[cur].querySelector('.bar i').style.width = (k * 100) + '%';
+    if (k >= 1){
+      if (cur + 1 < steps.length){ show(cur + 1); t0 = now; }
+      else { stop(true); return; }
+    }
+    raf = requestAnimationFrame(tick);
+  }
+  function play(){
+    if (cur < 0 || cur >= steps.length - 1) show(0);
+    t0 = performance.now();
+    btn.setAttribute('aria-pressed', 'true'); label.textContent = 'Pause';
+    raf = requestAnimationFrame(tick);
+  }
+  function stop(finished){
+    cancelAnimationFrame(raf); raf = null;
+    btn.setAttribute('aria-pressed', 'false');
+    label.textContent = finished ? 'Replay' : 'Play';
+    if (finished){ steps.forEach(s => s.classList.add('done')); tag.textContent = 'All ' + steps.length + ' steps done'; }
+  }
+  btn.addEventListener('click', () => raf ? stop(false) : play());
+  steps.forEach((s, k) => {
+    s.tabIndex = 0;
+    const go = () => { if (raf) stop(false); show(k); label.textContent = 'Play'; };
+    s.addEventListener('click', go);
+    s.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(); } });
+  });
+  if (steps.length) show(0);
+
+  const tabs = [...document.querySelectorAll('.tab:not(.ext)')];
+  const secs = tabs.map(t => document.querySelector(t.getAttribute('href')));
+  if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver(es => {
+      es.forEach(e => { if (e.isIntersecting){ const i = secs.indexOf(e.target); tabs.forEach((t, j) => t.classList.toggle('active', i === j)); } });
+    }, {rootMargin: '-40% 0px -50% 0px'});
+    secs.forEach(s => s && io.observe(s));
+  }
+  tabs.forEach(t => t.addEventListener('click', e => { e.preventDefault(); document.querySelector(t.getAttribute('href')).scrollIntoView({behavior:'smooth', block:'start'}); }));
+})();
+</script>
+</body>
+</html>
