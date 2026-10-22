@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="A personal roller massager that uses touch-activated vibration to relieve muscle stiffness, soreness and tension.">
+<title>Roller Massager V2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{--mint:#ffc46b;--accent-rgb:255,196,107}
+/* Layout: a single phone-width column of frosted glass panels over slow aurora light, app-style tab bar pinned to the bottom. Accent (--mint) is set per product category. */
+:root{
+  color-scheme: dark;
+  --ink:#06141a; --ink-2:#0b2229;
+  --glow:#2fb9c9;
+  --fg:#e9f6f3; --muted:#93b3ad;
+  --glass:rgba(220,255,245,.07); --glass-hi:rgba(220,255,245,.12);
+  --stroke:rgba(200,255,240,.16); --stroke-soft:rgba(200,255,240,.08);
+  --photo:#eef2f1;
+  --f-display:"Unbounded","Manrope",system-ui,sans-serif;
+  --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --r-lg:28px; --r-md:20px; --r-sm:14px;
+}
+*{box-sizing:border-box}
+html,body{background:var(--ink)}
+body{color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.aurora{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.aurora i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;animation:drift 22s ease-in-out infinite alternate}
+.aurora i:nth-child(1){width:420px;height:420px;background:var(--glow);top:-120px;left:-140px}
+.aurora i:nth-child(2){width:360px;height:360px;background:var(--mint);top:38%;right:-180px;opacity:.3;animation-duration:28s}
+.aurora i:nth-child(3){width:300px;height:300px;background:#1f6f8b;bottom:-80px;left:-60px;animation-duration:34s}
+.aurora::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,transparent 40%,var(--ink) 95%)}
+@keyframes drift{to{transform:translate(60px,80px) scale(1.15)}}
+.app{position:relative;z-index:1;max-width:460px;margin:0 auto;padding-inline:16px;padding-block:14px 120px;display:flex;flex-direction:column;gap:18px}
+.glass{background:linear-gradient(160deg,var(--glass-hi),var(--glass));border:1px solid var(--stroke);border-radius:var(--r-lg);backdrop-filter:blur(22px) saturate(140%);-webkit-backdrop-filter:blur(22px) saturate(140%);box-shadow:0 20px 50px -24px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.08)}
+.topbar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 16px;border-radius:999px}
+.brand{font-family:var(--f-display);font-weight:500;font-size:12px;letter-spacing:.04em;text-decoration:none;white-space:nowrap}
+.brand:hover{color:var(--mint)}
+.brand:focus-visible{outline:2px solid var(--mint);outline-offset:4px;border-radius:6px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;background:rgba(var(--accent-rgb),.12);color:var(--mint);border:1px solid rgba(var(--accent-rgb),.28);white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.dot{flex:none;width:7px;height:7px;border-radius:50%;background:currentColor;animation:ping 2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(var(--accent-rgb),.5)}100%{box-shadow:0 0 0 8px rgba(var(--accent-rgb),0)}}
+.hero{padding:22px 20px 20px;display:flex;flex-direction:column;gap:16px;overflow:hidden;position:relative}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,8vw,36px);line-height:1.06;letter-spacing:-.02em;margin:0;text-wrap:balance;overflow-wrap:anywhere}
+h1 span{color:var(--mint)}
+.lede{margin:0;color:var(--muted);max-width:44ch}
+.device{position:relative;border-radius:var(--r-md);overflow:hidden;aspect-ratio:1/1;max-width:100%;background:var(--photo);border:1px solid var(--stroke-soft)}
+.device img{width:100%;height:100%;object-fit:contain;display:block}
+.device .tag{position:absolute;left:12px;bottom:12px;z-index:2;font-family:var(--f-mono);font-size:11px;color:var(--fg);padding:6px 10px;border-radius:10px;background:rgba(6,20,26,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--stroke);max-width:calc(100% - 24px)}
+.monitor{padding:20px;display:flex;flex-direction:column;gap:12px}
+h2{font-family:var(--f-display);font-weight:500;font-size:18px;letter-spacing:-.01em;margin:0;text-wrap:balance}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;padding:10px 0;position:relative}
+.step:not(:last-child)::before{content:"";position:absolute;left:19px;top:52px;bottom:-6px;width:2px;background:linear-gradient(var(--stroke),transparent)}
+.step p{margin:0;padding-top:9px;color:var(--fg);font-size:14px}
+.num{background:var(--mint);color:var(--ink)}
+.step.done .num{border-color:rgba(var(--accent-rgb),.5)}
+.num{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-family:var(--f-mono);font-size:14px;color:var(--mint);background:rgba(var(--accent-rgb),.1);border:1px solid rgba(var(--accent-rgb),.28);}
+section{scroll-margin-top:80px}
+.card{padding:20px;display:flex;flex-direction:column;gap:14px}
+.card p{margin:0;color:var(--muted)}
+.card p.big{color:var(--fg);font-size:16px;line-height:1.6}
+.stack{display:flex;flex-direction:column;gap:12px}
+.features{display:grid;grid-template-columns:1fr;gap:12px}
+.feat{padding:16px 18px;display:grid;grid-template-columns:48px 1fr;gap:14px;align-items:center;border-radius:var(--r-md)}
+.feat .ico{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(140deg,rgba(var(--accent-rgb),.25),rgba(47,185,201,.08));border:1px solid var(--stroke)}
+.feat .ico svg{width:24px;height:24px;stroke:var(--mint);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.feat h3{margin:0;font-size:15px;font-weight:600;line-height:1.4}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--stroke);transition:background .2s}
+.chip:hover{background:rgba(var(--accent-rgb),.14)}
+.benefits{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.benefits li{display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start;font-size:14px}
+.benefits svg{width:22px;height:22px;stroke:var(--mint);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-top:1px}
+.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:10;width:min(428px,calc(100% - 32px));display:grid;grid-template-columns:repeat(4,1fr);padding:8px;border-radius:26px}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;border-radius:18px;color:var(--muted);text-decoration:none;font-size:11px;font-weight:600;transition:all .25s}
+.tab svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab.active{color:var(--ink);background:var(--mint);box-shadow:0 6px 18px -6px rgba(var(--accent-rgb),.7)}
+.tab:hover:not(.active){color:var(--fg)}
+.tab:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body style="margin:0">
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<main class="app">
+  <header class="topbar glass">
+    <a class="brand" href="./">← ALL PRODUCTS</a>
+    <span class="pill"><span class="dot"></span>Rehab &amp; assistive</span>
+  </header>
+
+  <section id="overview" class="hero glass">
+    <span class="eyebrow">Rehab &amp; assistive · Product design</span>
+    <h1>Roller Massager <span>V2</span></h1>
+    <p class="lede">A personal roller massager that uses touch-activated vibration to relieve muscle stiffness, soreness and tension.</p>
+    <div class="device" id="device">
+      <img alt="Photo of the Roller Massager V2" src="data:image/webp;base64,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">
+      <span class="tag">Product prototype</span>
+    </div>
+  </section>
+
+  <section id="how" class="monitor glass" aria-labelledby="how-h">
+    <h2 id="how-h">How it works</h2>
+    <ol class="steps" id="steps">
+      <li class="step"><span class="num">01</span><div><p>The user activates the device by touching the touch sensor.</p></div></li>
+      <li class="step"><span class="num">02</span><div><p>The device starts the vibration-based massage function.</p></div></li>
+      <li class="step"><span class="num">03</span><div><p>The vibration motors provide massage action to help relieve muscle stiffness and soreness.</p></div></li>
+      <li class="step"><span class="num">04</span><div><p>The OLED display provides information about the device&#x27;s operating status.</p></div></li>
+    </ol>
+  </section>
+
+  <section class="card glass" aria-labelledby="what-h">
+    <span class="eyebrow" id="what-h">What it is</span>
+    <p class="big">A Roller Massager is a personal massage device designed to help relieve muscle stiffness, soreness, and tension. It provides a convenient way to relax muscles through vibration-based massage. The device is activated through touch interaction, so users can operate it easily and enjoy a comfortable massage.</p>
+  </section>
+
+  <section id="features" aria-labelledby="feat-h" class="stack">
+    <h2 id="feat-h" style="padding-inline:6px">Key features</h2>
+    <div class="features">
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>
+        <div><h3>Vibration-based muscle massage</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <div><h3>Touch-controlled operation</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        <div><h3>Multiple vibration motors for massage action</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M4 17l6-6 4 4 6-8"/><path d="M14 7h6v6"/></svg></span>
+        <div><h3>OLED display for device status</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span>
+        <div><h3>Portable, rechargeable design</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3"/></svg></span>
+        <div><h3>Compact enclosure for convenient handling</h3></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card glass" aria-labelledby="who-h">
+    <h2 id="who-h">Where it's used</h2>
+    <div class="chips">
+      <span class="chip">Home relaxation</span>
+      <span class="chip">Fitness centers</span>
+      <span class="chip">Gyms</span>
+      <span class="chip">Physiotherapy support environments</span>
+      <span class="chip">Sports recovery routines</span>
+      <span class="chip">Personal wellness</span>
+    </div>
+    <h2>Benefits</h2>
+    <ul class="benefits">
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Helps relieve muscle stiffness and soreness</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Supports muscle relaxation after physical activity</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Provides a convenient, user-friendly massage experience</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Allows easy operation through touch control</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Offers a portable solution for personal relaxation</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Reduces the need for manual massage effort</span></li>
+    </ul>
+  </section>
+</main>
+
+<nav class="tabbar glass" aria-label="Sections">
+  <a class="tab active" href="#overview"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Overview</a>
+  <a class="tab" href="#how"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>How</a>
+  <a class="tab" href="#features"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.8 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg>Features</a>
+  <a class="tab ext" href="./"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>All</a>
+</nav>
+
+<script>
+(function(){
+  const tabs = [...document.querySelectorAll('.tab:not(.ext)')];
+  const secs = tabs.map(t => document.querySelector(t.getAttribute('href')));
+  if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver(es => {
+      es.forEach(e => { if (e.isIntersecting){ const i = secs.indexOf(e.target); tabs.forEach((t, j) => t.classList.toggle('active', i === j)); } });
+    }, {rootMargin: '-40% 0px -50% 0px'});
+    secs.forEach(s => s && io.observe(s));
+  }
+  tabs.forEach(t => t.addEventListener('click', e => { e.preventDefault(); document.querySelector(t.getAttribute('href')).scrollIntoView({behavior:'smooth', block:'start'}); }));
+})();
+</script>
+</body>
+</html>

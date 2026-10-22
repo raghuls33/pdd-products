@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Smart Water Meter helps consumers track the amount of water used in apartments and community buildings. It updates water usage details on the user&#x27;s mobile phone every day, helping people use water responsibly.">
+<title>Smart Water Meter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{--mint:#ffa6cf;--accent-rgb:255,166,207}
+/* Layout: a single phone-width column of frosted glass panels over slow aurora light, app-style tab bar pinned to the bottom. Accent (--mint) is set per product category. */
+:root{
+  color-scheme: dark;
+  --ink:#06141a; --ink-2:#0b2229;
+  --glow:#2fb9c9;
+  --fg:#e9f6f3; --muted:#93b3ad;
+  --glass:rgba(220,255,245,.07); --glass-hi:rgba(220,255,245,.12);
+  --stroke:rgba(200,255,240,.16); --stroke-soft:rgba(200,255,240,.08);
+  --photo:#eef2f1;
+  --f-display:"Unbounded","Manrope",system-ui,sans-serif;
+  --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --r-lg:28px; --r-md:20px; --r-sm:14px;
+}
+*{box-sizing:border-box}
+html,body{background:var(--ink)}
+body{color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.aurora{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.aurora i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;animation:drift 22s ease-in-out infinite alternate}
+.aurora i:nth-child(1){width:420px;height:420px;background:var(--glow);top:-120px;left:-140px}
+.aurora i:nth-child(2){width:360px;height:360px;background:var(--mint);top:38%;right:-180px;opacity:.3;animation-duration:28s}
+.aurora i:nth-child(3){width:300px;height:300px;background:#1f6f8b;bottom:-80px;left:-60px;animation-duration:34s}
+.aurora::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,transparent 40%,var(--ink) 95%)}
+@keyframes drift{to{transform:translate(60px,80px) scale(1.15)}}
+.app{position:relative;z-index:1;max-width:460px;margin:0 auto;padding-inline:16px;padding-block:14px 120px;display:flex;flex-direction:column;gap:18px}
+.glass{background:linear-gradient(160deg,var(--glass-hi),var(--glass));border:1px solid var(--stroke);border-radius:var(--r-lg);backdrop-filter:blur(22px) saturate(140%);-webkit-backdrop-filter:blur(22px) saturate(140%);box-shadow:0 20px 50px -24px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.08)}
+.topbar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 16px;border-radius:999px}
+.brand{font-family:var(--f-display);font-weight:500;font-size:12px;letter-spacing:.04em;text-decoration:none;white-space:nowrap}
+.brand:hover{color:var(--mint)}
+.brand:focus-visible{outline:2px solid var(--mint);outline-offset:4px;border-radius:6px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;background:rgba(var(--accent-rgb),.12);color:var(--mint);border:1px solid rgba(var(--accent-rgb),.28);white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.dot{flex:none;width:7px;height:7px;border-radius:50%;background:currentColor;animation:ping 2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(var(--accent-rgb),.5)}100%{box-shadow:0 0 0 8px rgba(var(--accent-rgb),0)}}
+.hero{padding:22px 20px 20px;display:flex;flex-direction:column;gap:16px;overflow:hidden;position:relative}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,8vw,36px);line-height:1.06;letter-spacing:-.02em;margin:0;text-wrap:balance;overflow-wrap:anywhere}
+h1 span{color:var(--mint)}
+.lede{margin:0;color:var(--muted);max-width:44ch}
+.device{position:relative;border-radius:var(--r-md);overflow:hidden;aspect-ratio:1/1;max-width:100%;background:var(--photo);border:1px solid var(--stroke-soft)}
+.device img{width:100%;height:100%;object-fit:contain;display:block}
+.device .tag{position:absolute;left:12px;bottom:12px;z-index:2;font-family:var(--f-mono);font-size:11px;color:var(--fg);padding:6px 10px;border-radius:10px;background:rgba(6,20,26,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--stroke);max-width:calc(100% - 24px)}
+.monitor{padding:20px;display:flex;flex-direction:column;gap:12px}
+h2{font-family:var(--f-display);font-weight:500;font-size:18px;letter-spacing:-.01em;margin:0;text-wrap:balance}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;padding:10px 0;position:relative}
+.step:not(:last-child)::before{content:"";position:absolute;left:19px;top:52px;bottom:-6px;width:2px;background:linear-gradient(var(--stroke),transparent)}
+.step p{margin:0;padding-top:9px;color:var(--fg);font-size:14px}
+.num{background:var(--mint);color:var(--ink)}
+.step.done .num{border-color:rgba(var(--accent-rgb),.5)}
+.num{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-family:var(--f-mono);font-size:14px;color:var(--mint);background:rgba(var(--accent-rgb),.1);border:1px solid rgba(var(--accent-rgb),.28);}
+section{scroll-margin-top:80px}
+.card{padding:20px;display:flex;flex-direction:column;gap:14px}
+.card p{margin:0;color:var(--muted)}
+.card p.big{color:var(--fg);font-size:16px;line-height:1.6}
+.stack{display:flex;flex-direction:column;gap:12px}
+.features{display:grid;grid-template-columns:1fr;gap:12px}
+.feat{padding:16px 18px;display:grid;grid-template-columns:48px 1fr;gap:14px;align-items:center;border-radius:var(--r-md)}
+.feat .ico{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(140deg,rgba(var(--accent-rgb),.25),rgba(47,185,201,.08));border:1px solid var(--stroke)}
+.feat .ico svg{width:24px;height:24px;stroke:var(--mint);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.feat h3{margin:0;font-size:15px;font-weight:600;line-height:1.4}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--stroke);transition:background .2s}
+.chip:hover{background:rgba(var(--accent-rgb),.14)}
+.benefits{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.benefits li{display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start;font-size:14px}
+.benefits svg{width:22px;height:22px;stroke:var(--mint);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-top:1px}
+.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:10;width:min(428px,calc(100% - 32px));display:grid;grid-template-columns:repeat(4,1fr);padding:8px;border-radius:26px}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;border-radius:18px;color:var(--muted);text-decoration:none;font-size:11px;font-weight:600;transition:all .25s}
+.tab svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab.active{color:var(--ink);background:var(--mint);box-shadow:0 6px 18px -6px rgba(var(--accent-rgb),.7)}
+.tab:hover:not(.active){color:var(--fg)}
+.tab:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body style="margin:0">
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<main class="app">
+  <header class="topbar glass">
+    <a class="brand" href="./">← ALL PRODUCTS</a>
+    <span class="pill"><span class="dot"></span>Home &amp; lifestyle</span>
+  </header>
+
+  <section id="overview" class="hero glass">
+    <span class="eyebrow">Home &amp; lifestyle · Product design</span>
+    <h1>Smart Water <span>Meter</span></h1>
+    <p class="lede">Smart Water Meter helps consumers track the amount of water used in apartments and community buildings. It updates water usage details on the user&#x27;s mobile phone every day, helping people use water responsibly.</p>
+    <div class="device" id="device">
+      <img alt="Photo of the Smart Water Meter" src="data:image/webp;base64,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">
+      <span class="tag">Product prototype</span>
+    </div>
+  </section>
+
+  <section id="how" class="monitor glass" aria-labelledby="how-h">
+    <h2 id="how-h">How it works</h2>
+    <ol class="steps" id="steps">
+      <li class="step"><span class="num">01</span><div><p>The meter keeps track of the water used by each consumer.</p></div></li>
+      <li class="step"><span class="num">02</span><div><p>The day&#x27;s water usage is updated on the user&#x27;s mobile phone.</p></div></li>
+      <li class="step"><span class="num">03</span><div><p>Consumers can check their water use and make better choices to avoid waste.</p></div></li>
+    </ol>
+  </section>
+
+  <section class="card glass" aria-labelledby="what-h">
+    <span class="eyebrow" id="what-h">What it is</span>
+    <p class="big">A water meter that measures how much water each household uses. It shares daily water usage details with the consumer on a mobile phone.</p>
+  </section>
+
+  <section id="features" aria-labelledby="feat-h" class="stack">
+    <h2 id="feat-h" style="padding-inline:6px">Key features</h2>
+    <div class="features">
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>
+        <div><h3>Daily water usage updates on the mobile phone</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <div><h3>Tracks water use for each household</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        <div><h3>Makes water usage easy to check</h3></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card glass" aria-labelledby="who-h">
+    <h2 id="who-h">Where it's used</h2>
+    <div class="chips">
+      <span class="chip">Metropolitan cities</span>
+      <span class="chip">Residential apartments</span>
+      <span class="chip">Gated communities</span>
+      <span class="chip">Community buildings</span>
+    </div>
+    <h2>Benefits</h2>
+    <ul class="benefits">
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Helps consumers understand their daily water usage</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Encourages people to use water responsibly</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Helps building management check water use in individual homes</span></li>
+    </ul>
+  </section>
+</main>
+
+<nav class="tabbar glass" aria-label="Sections">
+  <a class="tab active" href="#overview"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Overview</a>
+  <a class="tab" href="#how"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>How</a>
+  <a class="tab" href="#features"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.8 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg>Features</a>
+  <a class="tab ext" href="./"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>All</a>
+</nav>
+
+<script>
+(function(){
+  const tabs = [...document.querySelectorAll('.tab:not(.ext)')];
+  const secs = tabs.map(t => document.querySelector(t.getAttribute('href')));
+  if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver(es => {
+      es.forEach(e => { if (e.isIntersecting){ const i = secs.indexOf(e.target); tabs.forEach((t, j) => t.classList.toggle('active', i === j)); } });
+    }, {rootMargin: '-40% 0px -50% 0px'});
+    secs.forEach(s => s && io.observe(s));
+  }
+  tabs.forEach(t => t.addEventListener('click', e => { e.preventDefault(); document.querySelector(t.getAttribute('href')).scrollIntoView({behavior:'smooth', block:'start'}); }));
+})();
+</script>
+</body>
+</html>

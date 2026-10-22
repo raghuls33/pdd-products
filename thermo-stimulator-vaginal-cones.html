@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="A Thermo Stimulator Vaginal Cone is a therapeutic device designed to support pelvic floor relaxation and dilation therapy by combining gentle warmth and low-intensity vibration.">
+<title>Thermo Stimulator Vaginal Cones</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{--mint:#ffc46b;--accent-rgb:255,196,107}
+/* Layout: a single phone-width column of frosted glass panels over slow aurora light, app-style tab bar pinned to the bottom. Accent (--mint) is set per product category. */
+:root{
+  color-scheme: dark;
+  --ink:#06141a; --ink-2:#0b2229;
+  --glow:#2fb9c9;
+  --fg:#e9f6f3; --muted:#93b3ad;
+  --glass:rgba(220,255,245,.07); --glass-hi:rgba(220,255,245,.12);
+  --stroke:rgba(200,255,240,.16); --stroke-soft:rgba(200,255,240,.08);
+  --photo:#eef2f1;
+  --f-display:"Unbounded","Manrope",system-ui,sans-serif;
+  --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --r-lg:28px; --r-md:20px; --r-sm:14px;
+}
+*{box-sizing:border-box}
+html,body{background:var(--ink)}
+body{color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.aurora{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.aurora i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;animation:drift 22s ease-in-out infinite alternate}
+.aurora i:nth-child(1){width:420px;height:420px;background:var(--glow);top:-120px;left:-140px}
+.aurora i:nth-child(2){width:360px;height:360px;background:var(--mint);top:38%;right:-180px;opacity:.3;animation-duration:28s}
+.aurora i:nth-child(3){width:300px;height:300px;background:#1f6f8b;bottom:-80px;left:-60px;animation-duration:34s}
+.aurora::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,transparent 40%,var(--ink) 95%)}
+@keyframes drift{to{transform:translate(60px,80px) scale(1.15)}}
+.app{position:relative;z-index:1;max-width:460px;margin:0 auto;padding-inline:16px;padding-block:14px 120px;display:flex;flex-direction:column;gap:18px}
+.glass{background:linear-gradient(160deg,var(--glass-hi),var(--glass));border:1px solid var(--stroke);border-radius:var(--r-lg);backdrop-filter:blur(22px) saturate(140%);-webkit-backdrop-filter:blur(22px) saturate(140%);box-shadow:0 20px 50px -24px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.08)}
+.topbar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 16px;border-radius:999px}
+.brand{font-family:var(--f-display);font-weight:500;font-size:12px;letter-spacing:.04em;text-decoration:none;white-space:nowrap}
+.brand:hover{color:var(--mint)}
+.brand:focus-visible{outline:2px solid var(--mint);outline-offset:4px;border-radius:6px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;background:rgba(var(--accent-rgb),.12);color:var(--mint);border:1px solid rgba(var(--accent-rgb),.28);white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.dot{flex:none;width:7px;height:7px;border-radius:50%;background:currentColor;animation:ping 2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(var(--accent-rgb),.5)}100%{box-shadow:0 0 0 8px rgba(var(--accent-rgb),0)}}
+.hero{padding:22px 20px 20px;display:flex;flex-direction:column;gap:16px;overflow:hidden;position:relative}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,8vw,36px);line-height:1.06;letter-spacing:-.02em;margin:0;text-wrap:balance;overflow-wrap:anywhere}
+h1 span{color:var(--mint)}
+.lede{margin:0;color:var(--muted);max-width:44ch}
+.device{position:relative;border-radius:var(--r-md);overflow:hidden;aspect-ratio:1/1;max-width:100%;background:var(--photo);border:1px solid var(--stroke-soft)}
+.device img{width:100%;height:100%;object-fit:contain;display:block}
+.device .tag{position:absolute;left:12px;bottom:12px;z-index:2;font-family:var(--f-mono);font-size:11px;color:var(--fg);padding:6px 10px;border-radius:10px;background:rgba(6,20,26,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--stroke);max-width:calc(100% - 24px)}
+.monitor{padding:20px;display:flex;flex-direction:column;gap:12px}
+h2{font-family:var(--f-display);font-weight:500;font-size:18px;letter-spacing:-.01em;margin:0;text-wrap:balance}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;padding:10px 0;position:relative}
+.step:not(:last-child)::before{content:"";position:absolute;left:19px;top:52px;bottom:-6px;width:2px;background:linear-gradient(var(--stroke),transparent)}
+.step p{margin:0;padding-top:9px;color:var(--fg);font-size:14px}
+.num{background:var(--mint);color:var(--ink)}
+.step.done .num{border-color:rgba(var(--accent-rgb),.5)}
+.num{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-family:var(--f-mono);font-size:14px;color:var(--mint);background:rgba(var(--accent-rgb),.1);border:1px solid rgba(var(--accent-rgb),.28);}
+section{scroll-margin-top:80px}
+.card{padding:20px;display:flex;flex-direction:column;gap:14px}
+.card p{margin:0;color:var(--muted)}
+.card p.big{color:var(--fg);font-size:16px;line-height:1.6}
+.stack{display:flex;flex-direction:column;gap:12px}
+.features{display:grid;grid-template-columns:1fr;gap:12px}
+.feat{padding:16px 18px;display:grid;grid-template-columns:48px 1fr;gap:14px;align-items:center;border-radius:var(--r-md)}
+.feat .ico{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(140deg,rgba(var(--accent-rgb),.25),rgba(47,185,201,.08));border:1px solid var(--stroke)}
+.feat .ico svg{width:24px;height:24px;stroke:var(--mint);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.feat h3{margin:0;font-size:15px;font-weight:600;line-height:1.4}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--stroke);transition:background .2s}
+.chip:hover{background:rgba(var(--accent-rgb),.14)}
+.benefits{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.benefits li{display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start;font-size:14px}
+.benefits svg{width:22px;height:22px;stroke:var(--mint);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-top:1px}
+.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:10;width:min(428px,calc(100% - 32px));display:grid;grid-template-columns:repeat(4,1fr);padding:8px;border-radius:26px}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;border-radius:18px;color:var(--muted);text-decoration:none;font-size:11px;font-weight:600;transition:all .25s}
+.tab svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab.active{color:var(--ink);background:var(--mint);box-shadow:0 6px 18px -6px rgba(var(--accent-rgb),.7)}
+.tab:hover:not(.active){color:var(--fg)}
+.tab:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body style="margin:0">
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<main class="app">
+  <header class="topbar glass">
+    <a class="brand" href="./">← ALL PRODUCTS</a>
+    <span class="pill"><span class="dot"></span>Rehab &amp; assistive</span>
+  </header>
+
+  <section id="overview" class="hero glass">
+    <span class="eyebrow">Rehab &amp; assistive · Product design</span>
+    <h1>Thermo Stimulator Vaginal <span>Cones</span></h1>
+    <p class="lede">A Thermo Stimulator Vaginal Cone is a therapeutic device designed to support pelvic floor relaxation and dilation therapy by combining gentle warmth and low-intensity vibration.</p>
+    <div class="device" id="device">
+      <img alt="Photo of the Thermo Stimulator Vaginal Cones" src="data:image/webp;base64,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">
+      <span class="tag">Product prototype</span>
+    </div>
+  </section>
+
+  <section id="how" class="monitor glass" aria-labelledby="how-h">
+    <h2 id="how-h">How it works</h2>
+    <ol class="steps" id="steps">
+      <li class="step"><span class="num">01</span><div><p>The user prepares the device for use according to the guidance of a qualified healthcare professional.</p></div></li>
+      <li class="step"><span class="num">02</span><div><p>The device provides controlled warmth to support relaxation of the pelvic floor muscles.</p></div></li>
+      <li class="step"><span class="num">03</span><div><p>Gentle vibration provides sensory stimulation to promote relaxation and comfort.</p></div></li>
+      <li class="step"><span class="num">04</span><div><p>The cone-shaped design supports gradual dilation therapy.</p></div></li>
+      <li class="step"><span class="num">05</span><div><p>The device is intended to support pelvic rehabilitation under appropriate medical guidance.</p></div></li>
+    </ol>
+  </section>
+
+  <section class="card glass" aria-labelledby="what-h">
+    <span class="eyebrow" id="what-h">What it is</span>
+    <p class="big">It aims to improve comfort during therapy, reduce muscle tightness, and help users feel more relaxed during pelvic rehabilitation.</p>
+  </section>
+
+  <section id="features" aria-labelledby="feat-h" class="stack">
+    <h2 id="feat-h" style="padding-inline:6px">Key features</h2>
+    <div class="features">
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>
+        <div><h3>Combines heat and vibration in a single therapeutic device.</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <div><h3>Provides controlled warmth and gentle sensory stimulation.</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        <div><h3>Features an ergonomic, cone-shaped design for dilation therapy.</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M4 17l6-6 4 4 6-8"/><path d="M14 7h6v6"/></svg></span>
+        <div><h3>Designed with user comfort and ease of handling in mind.</h3></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card glass" aria-labelledby="who-h">
+    <h2 id="who-h">Where it's used</h2>
+    <div class="chips">
+      <span class="chip">Gynecology clinics</span>
+      <span class="chip">Pelvic floor physiotherapy centers</span>
+      <span class="chip">Rehabilitation programs</span>
+      <span class="chip">Healthcare professional-guided home therapy</span>
+    </div>
+    <h2>Benefits</h2>
+    <ul class="benefits">
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Supports pelvic floor muscle relaxation.</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Helps promote comfort during dilation therapy.</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>May help reduce anxiety and fear associated with pelvic rehabilitation.</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Combines two therapeutic functions in one device.</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Supports a more comfortable and consistent rehabilitation experience.</span></li>
+    </ul>
+  </section>
+</main>
+
+<nav class="tabbar glass" aria-label="Sections">
+  <a class="tab active" href="#overview"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Overview</a>
+  <a class="tab" href="#how"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>How</a>
+  <a class="tab" href="#features"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.8 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg>Features</a>
+  <a class="tab ext" href="./"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>All</a>
+</nav>
+
+<script>
+(function(){
+  const tabs = [...document.querySelectorAll('.tab:not(.ext)')];
+  const secs = tabs.map(t => document.querySelector(t.getAttribute('href')));
+  if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver(es => {
+      es.forEach(e => { if (e.isIntersecting){ const i = secs.indexOf(e.target); tabs.forEach((t, j) => t.classList.toggle('active', i === j)); } });
+    }, {rootMargin: '-40% 0px -50% 0px'});
+    secs.forEach(s => s && io.observe(s));
+  }
+  tabs.forEach(t => t.addEventListener('click', e => { e.preventDefault(); document.querySelector(t.getAttribute('href')).scrollIntoView({behavior:'smooth', block:'start'}); }));
+})();
+</script>
+</body>
+</html>

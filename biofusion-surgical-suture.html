@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="A biodegradable surgical suture material designed to support wound closure.">
+<title>BioFusion Surgical Suture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{--mint:#7cf0c8;--accent-rgb:124,240,200}
+/* Layout: a single phone-width column of frosted glass panels over slow aurora light, app-style tab bar pinned to the bottom. Accent (--mint) is set per product category. */
+:root{
+  color-scheme: dark;
+  --ink:#06141a; --ink-2:#0b2229;
+  --glow:#2fb9c9;
+  --fg:#e9f6f3; --muted:#93b3ad;
+  --glass:rgba(220,255,245,.07); --glass-hi:rgba(220,255,245,.12);
+  --stroke:rgba(200,255,240,.16); --stroke-soft:rgba(200,255,240,.08);
+  --photo:#eef2f1;
+  --f-display:"Unbounded","Manrope",system-ui,sans-serif;
+  --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --r-lg:28px; --r-md:20px; --r-sm:14px;
+}
+*{box-sizing:border-box}
+html,body{background:var(--ink)}
+body{color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.aurora{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.aurora i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;animation:drift 22s ease-in-out infinite alternate}
+.aurora i:nth-child(1){width:420px;height:420px;background:var(--glow);top:-120px;left:-140px}
+.aurora i:nth-child(2){width:360px;height:360px;background:var(--mint);top:38%;right:-180px;opacity:.3;animation-duration:28s}
+.aurora i:nth-child(3){width:300px;height:300px;background:#1f6f8b;bottom:-80px;left:-60px;animation-duration:34s}
+.aurora::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,transparent 40%,var(--ink) 95%)}
+@keyframes drift{to{transform:translate(60px,80px) scale(1.15)}}
+.app{position:relative;z-index:1;max-width:460px;margin:0 auto;padding-inline:16px;padding-block:14px 120px;display:flex;flex-direction:column;gap:18px}
+.glass{background:linear-gradient(160deg,var(--glass-hi),var(--glass));border:1px solid var(--stroke);border-radius:var(--r-lg);backdrop-filter:blur(22px) saturate(140%);-webkit-backdrop-filter:blur(22px) saturate(140%);box-shadow:0 20px 50px -24px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.08)}
+.topbar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 16px;border-radius:999px}
+.brand{font-family:var(--f-display);font-weight:500;font-size:12px;letter-spacing:.04em;text-decoration:none;white-space:nowrap}
+.brand:hover{color:var(--mint)}
+.brand:focus-visible{outline:2px solid var(--mint);outline-offset:4px;border-radius:6px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;background:rgba(var(--accent-rgb),.12);color:var(--mint);border:1px solid rgba(var(--accent-rgb),.28);white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.dot{flex:none;width:7px;height:7px;border-radius:50%;background:currentColor;animation:ping 2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(var(--accent-rgb),.5)}100%{box-shadow:0 0 0 8px rgba(var(--accent-rgb),0)}}
+.hero{padding:22px 20px 20px;display:flex;flex-direction:column;gap:16px;overflow:hidden;position:relative}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,8vw,36px);line-height:1.06;letter-spacing:-.02em;margin:0;text-wrap:balance;overflow-wrap:anywhere}
+h1 span{color:var(--mint)}
+.lede{margin:0;color:var(--muted);max-width:44ch}
+.device{position:relative;border-radius:var(--r-md);overflow:hidden;aspect-ratio:1/1;max-width:100%;background:var(--photo);border:1px solid var(--stroke-soft)}
+.device img{width:100%;height:100%;object-fit:contain;display:block}
+.device .tag{position:absolute;left:12px;bottom:12px;z-index:2;font-family:var(--f-mono);font-size:11px;color:var(--fg);padding:6px 10px;border-radius:10px;background:rgba(6,20,26,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--stroke);max-width:calc(100% - 24px)}
+.monitor{padding:20px;display:flex;flex-direction:column;gap:12px}
+h2{font-family:var(--f-display);font-weight:500;font-size:18px;letter-spacing:-.01em;margin:0;text-wrap:balance}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;padding:10px 0;position:relative}
+.step:not(:last-child)::before{content:"";position:absolute;left:19px;top:52px;bottom:-6px;width:2px;background:linear-gradient(var(--stroke),transparent)}
+.step p{margin:0;padding-top:9px;color:var(--fg);font-size:14px}
+.num{background:var(--mint);color:var(--ink)}
+.step.done .num{border-color:rgba(var(--accent-rgb),.5)}
+.num{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-family:var(--f-mono);font-size:14px;color:var(--mint);background:rgba(var(--accent-rgb),.1);border:1px solid rgba(var(--accent-rgb),.28);}
+section{scroll-margin-top:80px}
+.card{padding:20px;display:flex;flex-direction:column;gap:14px}
+.card p{margin:0;color:var(--muted)}
+.card p.big{color:var(--fg);font-size:16px;line-height:1.6}
+.stack{display:flex;flex-direction:column;gap:12px}
+.features{display:grid;grid-template-columns:1fr;gap:12px}
+.feat{padding:16px 18px;display:grid;grid-template-columns:48px 1fr;gap:14px;align-items:center;border-radius:var(--r-md)}
+.feat .ico{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(140deg,rgba(var(--accent-rgb),.25),rgba(47,185,201,.08));border:1px solid var(--stroke)}
+.feat .ico svg{width:24px;height:24px;stroke:var(--mint);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.feat h3{margin:0;font-size:15px;font-weight:600;line-height:1.4}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--stroke);transition:background .2s}
+.chip:hover{background:rgba(var(--accent-rgb),.14)}
+.benefits{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.benefits li{display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start;font-size:14px}
+.benefits svg{width:22px;height:22px;stroke:var(--mint);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-top:1px}
+.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:10;width:min(428px,calc(100% - 32px));display:grid;grid-template-columns:repeat(4,1fr);padding:8px;border-radius:26px}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;border-radius:18px;color:var(--muted);text-decoration:none;font-size:11px;font-weight:600;transition:all .25s}
+.tab svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab.active{color:var(--ink);background:var(--mint);box-shadow:0 6px 18px -6px rgba(var(--accent-rgb),.7)}
+.tab:hover:not(.active){color:var(--fg)}
+.tab:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body style="margin:0">
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<main class="app">
+  <header class="topbar glass">
+    <a class="brand" href="./">← ALL PRODUCTS</a>
+    <span class="pill"><span class="dot"></span>Patient care</span>
+  </header>
+
+  <section id="overview" class="hero glass">
+    <span class="eyebrow">Patient care · Product design</span>
+    <h1>BioFusion Surgical <span>Suture</span></h1>
+    <p class="lede">A biodegradable surgical suture material designed to support wound closure.</p>
+    <div class="device" id="device">
+      <img alt="Photo of the BioFusion Surgical Suture" src="data:image/webp;base64,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">
+      <span class="tag">Product prototype</span>
+    </div>
+  </section>
+
+  <section id="how" class="monitor glass" aria-labelledby="how-h">
+    <h2 id="how-h">How it works</h2>
+    <ol class="steps" id="steps">
+      <li class="step"><span class="num">01</span><div><p>The suture material is used to approximate and hold wound edges together during closure.</p></div></li>
+      <li class="step"><span class="num">02</span><div><p>The suture provides mechanical support to the wound during the healing process.</p></div></li>
+      <li class="step"><span class="num">03</span><div><p>The formulation incorporates selected natural extracts alongside a polymer-based material.</p></div></li>
+      <li class="step"><span class="num">04</span><div><p>The material&#x27;s performance depends on its strength, biocompatibility, degradation behavior, and suitability for the intended medical application.</p></div></li>
+    </ol>
+  </section>
+
+  <section class="card glass" aria-labelledby="what-h">
+    <span class="eyebrow" id="what-h">What it is</span>
+    <p class="big">The bio-based suture formulation containing materials such as aloe vera gel, turmeric, green tea extract, and polyvinyl alcohol. It is intended to explore the integration of natural ingredients with suture materials for potential wound-care applications.</p>
+  </section>
+
+  <section id="features" aria-labelledby="feat-h" class="stack">
+    <h2 id="feat-h" style="padding-inline:6px">Key features</h2>
+    <div class="features">
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>
+        <div><h3>Suture-based wound closure concept</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <div><h3>Incorporation of selected natural extracts</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        <div><h3>Polymer-based material formulation</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M4 17l6-6 4 4 6-8"/><path d="M14 7h6v6"/></svg></span>
+        <div><h3>Designed for investigation in wound-care applications</h3></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card glass" aria-labelledby="who-h">
+    <h2 id="who-h">Where it's used</h2>
+    <div class="chips">
+      <span class="chip">Biomedical research</span>
+      <span class="chip">Biomaterials development</span>
+      <span class="chip">Tissue engineering studies</span>
+      <span class="chip">Wound-care material research</span>
+      <span class="chip">Educational projects involving the development</span>
+      <span class="chip">Evaluation of alternative surgical suture formulations</span>
+    </div>
+    <h2>Benefits</h2>
+    <ul class="benefits">
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Supports research into alternative suture materials</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Encourages exploration of natural extracts in biomaterial formulations</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Provides a platform for studying material properties relevant to wound closure</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Promotes investigation of biocompatibility and biodegradation characteristics</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Contributes to educational and research activities in biomedical engineering</span></li>
+    </ul>
+  </section>
+</main>
+
+<nav class="tabbar glass" aria-label="Sections">
+  <a class="tab active" href="#overview"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Overview</a>
+  <a class="tab" href="#how"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>How</a>
+  <a class="tab" href="#features"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.8 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg>Features</a>
+  <a class="tab ext" href="./"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>All</a>
+</nav>
+
+<script>
+(function(){
+  const tabs = [...document.querySelectorAll('.tab:not(.ext)')];
+  const secs = tabs.map(t => document.querySelector(t.getAttribute('href')));
+  if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver(es => {
+      es.forEach(e => { if (e.isIntersecting){ const i = secs.indexOf(e.target); tabs.forEach((t, j) => t.classList.toggle('active', i === j)); } });
+    }, {rootMargin: '-40% 0px -50% 0px'});
+    secs.forEach(s => s && io.observe(s));
+  }
+  tabs.forEach(t => t.addEventListener('click', e => { e.preventDefault(); document.querySelector(t.getAttribute('href')).scrollIntoView({behavior:'smooth', block:'start'}); }));
+})();
+</script>
+</body>
+</html>

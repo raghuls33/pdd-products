@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="The Smart Napkin Vending Machine provides napkins when a user presses a button and keeps track of the available quantity. It updates stock details over a Wi-Fi network after every dispensing action and indicates when the stock is low.">
+<title>Smart Napkin Vending Machine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{--mint:#9ff0e6;--accent-rgb:159,240,230}
+/* Layout: a single phone-width column of frosted glass panels over slow aurora light, app-style tab bar pinned to the bottom. Accent (--mint) is set per product category. */
+:root{
+  color-scheme: dark;
+  --ink:#06141a; --ink-2:#0b2229;
+  --glow:#2fb9c9;
+  --fg:#e9f6f3; --muted:#93b3ad;
+  --glass:rgba(220,255,245,.07); --glass-hi:rgba(220,255,245,.12);
+  --stroke:rgba(200,255,240,.16); --stroke-soft:rgba(200,255,240,.08);
+  --photo:#eef2f1;
+  --f-display:"Unbounded","Manrope",system-ui,sans-serif;
+  --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --r-lg:28px; --r-md:20px; --r-sm:14px;
+}
+*{box-sizing:border-box}
+html,body{background:var(--ink)}
+body{color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.aurora{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.aurora i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;animation:drift 22s ease-in-out infinite alternate}
+.aurora i:nth-child(1){width:420px;height:420px;background:var(--glow);top:-120px;left:-140px}
+.aurora i:nth-child(2){width:360px;height:360px;background:var(--mint);top:38%;right:-180px;opacity:.3;animation-duration:28s}
+.aurora i:nth-child(3){width:300px;height:300px;background:#1f6f8b;bottom:-80px;left:-60px;animation-duration:34s}
+.aurora::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,transparent 40%,var(--ink) 95%)}
+@keyframes drift{to{transform:translate(60px,80px) scale(1.15)}}
+.app{position:relative;z-index:1;max-width:460px;margin:0 auto;padding-inline:16px;padding-block:14px 120px;display:flex;flex-direction:column;gap:18px}
+.glass{background:linear-gradient(160deg,var(--glass-hi),var(--glass));border:1px solid var(--stroke);border-radius:var(--r-lg);backdrop-filter:blur(22px) saturate(140%);-webkit-backdrop-filter:blur(22px) saturate(140%);box-shadow:0 20px 50px -24px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.08)}
+.topbar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 16px;border-radius:999px}
+.brand{font-family:var(--f-display);font-weight:500;font-size:12px;letter-spacing:.04em;text-decoration:none;white-space:nowrap}
+.brand:hover{color:var(--mint)}
+.brand:focus-visible{outline:2px solid var(--mint);outline-offset:4px;border-radius:6px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;background:rgba(var(--accent-rgb),.12);color:var(--mint);border:1px solid rgba(var(--accent-rgb),.28);white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.dot{flex:none;width:7px;height:7px;border-radius:50%;background:currentColor;animation:ping 2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(var(--accent-rgb),.5)}100%{box-shadow:0 0 0 8px rgba(var(--accent-rgb),0)}}
+.hero{padding:22px 20px 20px;display:flex;flex-direction:column;gap:16px;overflow:hidden;position:relative}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,8vw,36px);line-height:1.06;letter-spacing:-.02em;margin:0;text-wrap:balance;overflow-wrap:anywhere}
+h1 span{color:var(--mint)}
+.lede{margin:0;color:var(--muted);max-width:44ch}
+.device{position:relative;border-radius:var(--r-md);overflow:hidden;aspect-ratio:1/1;max-width:100%;background:var(--photo);border:1px solid var(--stroke-soft)}
+.device img{width:100%;height:100%;object-fit:contain;display:block}
+.device .tag{position:absolute;left:12px;bottom:12px;z-index:2;font-family:var(--f-mono);font-size:11px;color:var(--fg);padding:6px 10px;border-radius:10px;background:rgba(6,20,26,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--stroke);max-width:calc(100% - 24px)}
+.monitor{padding:20px;display:flex;flex-direction:column;gap:12px}
+h2{font-family:var(--f-display);font-weight:500;font-size:18px;letter-spacing:-.01em;margin:0;text-wrap:balance}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;padding:10px 0;position:relative}
+.step:not(:last-child)::before{content:"";position:absolute;left:19px;top:52px;bottom:-6px;width:2px;background:linear-gradient(var(--stroke),transparent)}
+.step p{margin:0;padding-top:9px;color:var(--fg);font-size:14px}
+.num{background:var(--mint);color:var(--ink)}
+.step.done .num{border-color:rgba(var(--accent-rgb),.5)}
+.num{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-family:var(--f-mono);font-size:14px;color:var(--mint);background:rgba(var(--accent-rgb),.1);border:1px solid rgba(var(--accent-rgb),.28);}
+section{scroll-margin-top:80px}
+.card{padding:20px;display:flex;flex-direction:column;gap:14px}
+.card p{margin:0;color:var(--muted)}
+.card p.big{color:var(--fg);font-size:16px;line-height:1.6}
+.stack{display:flex;flex-direction:column;gap:12px}
+.features{display:grid;grid-template-columns:1fr;gap:12px}
+.feat{padding:16px 18px;display:grid;grid-template-columns:48px 1fr;gap:14px;align-items:center;border-radius:var(--r-md)}
+.feat .ico{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(140deg,rgba(var(--accent-rgb),.25),rgba(47,185,201,.08));border:1px solid var(--stroke)}
+.feat .ico svg{width:24px;height:24px;stroke:var(--mint);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.feat h3{margin:0;font-size:15px;font-weight:600;line-height:1.4}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--stroke);transition:background .2s}
+.chip:hover{background:rgba(var(--accent-rgb),.14)}
+.benefits{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.benefits li{display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start;font-size:14px}
+.benefits svg{width:22px;height:22px;stroke:var(--mint);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-top:1px}
+.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:10;width:min(428px,calc(100% - 32px));display:grid;grid-template-columns:repeat(4,1fr);padding:8px;border-radius:26px}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;border-radius:18px;color:var(--muted);text-decoration:none;font-size:11px;font-weight:600;transition:all .25s}
+.tab svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab.active{color:var(--ink);background:var(--mint);box-shadow:0 6px 18px -6px rgba(var(--accent-rgb),.7)}
+.tab:hover:not(.active){color:var(--fg)}
+.tab:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body style="margin:0">
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<main class="app">
+  <header class="topbar glass">
+    <a class="brand" href="./">← ALL PRODUCTS</a>
+    <span class="pill"><span class="dot"></span>Hygiene &amp; vending</span>
+  </header>
+
+  <section id="overview" class="hero glass">
+    <span class="eyebrow">Hygiene &amp; vending · Product design</span>
+    <h1>Smart Napkin Vending <span>Machine</span></h1>
+    <p class="lede">The Smart Napkin Vending Machine provides napkins when a user presses a button and keeps track of the available quantity. It updates stock details over a Wi-Fi network after every dispensing action and indicates when the stock is low.</p>
+    <div class="device" id="device">
+      <img alt="Photo of the Smart Napkin Vending Machine" src="data:image/webp;base64,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">
+      <span class="tag">Product prototype</span>
+    </div>
+  </section>
+
+  <section id="how" class="monitor glass" aria-labelledby="how-h">
+    <h2 id="how-h">How it works</h2>
+    <ol class="steps" id="steps">
+      <li class="step"><span class="num">01</span><div><p>The user presses the button to dispense a napkin.</p></div></li>
+      <li class="step"><span class="num">02</span><div><p>The machine releases a napkin and checks whether it has been dispensed successfully.</p></div></li>
+      <li class="step"><span class="num">03</span><div><p>The available quantity is updated over the Wi-Fi network after each dispensing action.</p></div></li>
+    </ol>
+  </section>
+
+  <section class="card glass" aria-labelledby="what-h">
+    <span class="eyebrow" id="what-h">What it is</span>
+    <p class="big">A simple napkin dispensing machine that allows users to collect napkins by pressing a button. It keeps track of the remaining quantity and shares stock updates over a Wi-Fi network, making it easier to monitor and refill the machine when needed.</p>
+  </section>
+
+  <section id="features" aria-labelledby="feat-h" class="stack">
+    <h2 id="feat-h" style="padding-inline:6px">Key features</h2>
+    <div class="features">
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>
+        <div><h3>Button-operated napkin dispensing</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <div><h3>Automatic tracking of available napkins</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        <div><h3>Wi-Fi stock updates after every dispensing action</h3></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card glass" aria-labelledby="who-h">
+    <h2 id="who-h">Where it's used</h2>
+    <div class="chips">
+      <span class="chip">Schools</span>
+      <span class="chip">Colleges</span>
+      <span class="chip">Hospitals</span>
+      <span class="chip">Offices</span>
+      <span class="chip">Shopping malls</span>
+      <span class="chip">Public facilities</span>
+    </div>
+    <h2>Benefits</h2>
+    <ul class="benefits">
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Provides easy access to napkins</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Helps monitor the available stock</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Reduces the need for frequent manual stock checking</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Indicates when the stock is low</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Makes restocking and stock management easier</span></li>
+    </ul>
+  </section>
+</main>
+
+<nav class="tabbar glass" aria-label="Sections">
+  <a class="tab active" href="#overview"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Overview</a>
+  <a class="tab" href="#how"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>How</a>
+  <a class="tab" href="#features"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.8 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg>Features</a>
+  <a class="tab ext" href="./"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>All</a>
+</nav>
+
+<script>
+(function(){
+  const tabs = [...document.querySelectorAll('.tab:not(.ext)')];
+  const secs = tabs.map(t => document.querySelector(t.getAttribute('href')));
+  if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver(es => {
+      es.forEach(e => { if (e.isIntersecting){ const i = secs.indexOf(e.target); tabs.forEach((t, j) => t.classList.toggle('active', i === j)); } });
+    }, {rootMargin: '-40% 0px -50% 0px'});
+    secs.forEach(s => s && io.observe(s));
+  }
+  tabs.forEach(t => t.addEventListener('click', e => { e.preventDefault(); document.querySelector(t.getAttribute('href')).scrollIntoView({behavior:'smooth', block:'start'}); }));
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="A Smart Power Plug is an intelligent electrical monitoring device designed to measure and display the current, voltage, power consumption, and estimated electricity cost of connected appliances.">
+<title>Smart Power Plug</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{--mint:#ffa6cf;--accent-rgb:255,166,207}
+/* Layout: a single phone-width column of frosted glass panels over slow aurora light, app-style tab bar pinned to the bottom. Accent (--mint) is set per product category. */
+:root{
+  color-scheme: dark;
+  --ink:#06141a; --ink-2:#0b2229;
+  --glow:#2fb9c9;
+  --fg:#e9f6f3; --muted:#93b3ad;
+  --glass:rgba(220,255,245,.07); --glass-hi:rgba(220,255,245,.12);
+  --stroke:rgba(200,255,240,.16); --stroke-soft:rgba(200,255,240,.08);
+  --photo:#eef2f1;
+  --f-display:"Unbounded","Manrope",system-ui,sans-serif;
+  --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --r-lg:28px; --r-md:20px; --r-sm:14px;
+}
+*{box-sizing:border-box}
+html,body{background:var(--ink)}
+body{color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.aurora{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.aurora i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;animation:drift 22s ease-in-out infinite alternate}
+.aurora i:nth-child(1){width:420px;height:420px;background:var(--glow);top:-120px;left:-140px}
+.aurora i:nth-child(2){width:360px;height:360px;background:var(--mint);top:38%;right:-180px;opacity:.3;animation-duration:28s}
+.aurora i:nth-child(3){width:300px;height:300px;background:#1f6f8b;bottom:-80px;left:-60px;animation-duration:34s}
+.aurora::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,transparent 40%,var(--ink) 95%)}
+@keyframes drift{to{transform:translate(60px,80px) scale(1.15)}}
+.app{position:relative;z-index:1;max-width:460px;margin:0 auto;padding-inline:16px;padding-block:14px 120px;display:flex;flex-direction:column;gap:18px}
+.glass{background:linear-gradient(160deg,var(--glass-hi),var(--glass));border:1px solid var(--stroke);border-radius:var(--r-lg);backdrop-filter:blur(22px) saturate(140%);-webkit-backdrop-filter:blur(22px) saturate(140%);box-shadow:0 20px 50px -24px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.08)}
+.topbar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 16px;border-radius:999px}
+.brand{font-family:var(--f-display);font-weight:500;font-size:12px;letter-spacing:.04em;text-decoration:none;white-space:nowrap}
+.brand:hover{color:var(--mint)}
+.brand:focus-visible{outline:2px solid var(--mint);outline-offset:4px;border-radius:6px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;background:rgba(var(--accent-rgb),.12);color:var(--mint);border:1px solid rgba(var(--accent-rgb),.28);white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.dot{flex:none;width:7px;height:7px;border-radius:50%;background:currentColor;animation:ping 2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(var(--accent-rgb),.5)}100%{box-shadow:0 0 0 8px rgba(var(--accent-rgb),0)}}
+.hero{padding:22px 20px 20px;display:flex;flex-direction:column;gap:16px;overflow:hidden;position:relative}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,8vw,36px);line-height:1.06;letter-spacing:-.02em;margin:0;text-wrap:balance;overflow-wrap:anywhere}
+h1 span{color:var(--mint)}
+.lede{margin:0;color:var(--muted);max-width:44ch}
+.device{position:relative;border-radius:var(--r-md);overflow:hidden;aspect-ratio:1/1;max-width:100%;background:var(--photo);border:1px solid var(--stroke-soft)}
+.device img{width:100%;height:100%;object-fit:contain;display:block}
+.device .tag{position:absolute;left:12px;bottom:12px;z-index:2;font-family:var(--f-mono);font-size:11px;color:var(--fg);padding:6px 10px;border-radius:10px;background:rgba(6,20,26,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--stroke);max-width:calc(100% - 24px)}
+.monitor{padding:20px;display:flex;flex-direction:column;gap:12px}
+h2{font-family:var(--f-display);font-weight:500;font-size:18px;letter-spacing:-.01em;margin:0;text-wrap:balance}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;padding:10px 0;position:relative}
+.step:not(:last-child)::before{content:"";position:absolute;left:19px;top:52px;bottom:-6px;width:2px;background:linear-gradient(var(--stroke),transparent)}
+.step p{margin:0;padding-top:9px;color:var(--fg);font-size:14px}
+.num{background:var(--mint);color:var(--ink)}
+.step.done .num{border-color:rgba(var(--accent-rgb),.5)}
+.num{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-family:var(--f-mono);font-size:14px;color:var(--mint);background:rgba(var(--accent-rgb),.1);border:1px solid rgba(var(--accent-rgb),.28);}
+section{scroll-margin-top:80px}
+.card{padding:20px;display:flex;flex-direction:column;gap:14px}
+.card p{margin:0;color:var(--muted)}
+.card p.big{color:var(--fg);font-size:16px;line-height:1.6}
+.stack{display:flex;flex-direction:column;gap:12px}
+.features{display:grid;grid-template-columns:1fr;gap:12px}
+.feat{padding:16px 18px;display:grid;grid-template-columns:48px 1fr;gap:14px;align-items:center;border-radius:var(--r-md)}
+.feat .ico{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(140deg,rgba(var(--accent-rgb),.25),rgba(47,185,201,.08));border:1px solid var(--stroke)}
+.feat .ico svg{width:24px;height:24px;stroke:var(--mint);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.feat h3{margin:0;font-size:15px;font-weight:600;line-height:1.4}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--stroke);transition:background .2s}
+.chip:hover{background:rgba(var(--accent-rgb),.14)}
+.benefits{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.benefits li{display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start;font-size:14px}
+.benefits svg{width:22px;height:22px;stroke:var(--mint);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-top:1px}
+.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:10;width:min(428px,calc(100% - 32px));display:grid;grid-template-columns:repeat(4,1fr);padding:8px;border-radius:26px}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;border-radius:18px;color:var(--muted);text-decoration:none;font-size:11px;font-weight:600;transition:all .25s}
+.tab svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab.active{color:var(--ink);background:var(--mint);box-shadow:0 6px 18px -6px rgba(var(--accent-rgb),.7)}
+.tab:hover:not(.active){color:var(--fg)}
+.tab:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body style="margin:0">
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<main class="app">
+  <header class="topbar glass">
+    <a class="brand" href="./">← ALL PRODUCTS</a>
+    <span class="pill"><span class="dot"></span>Home &amp; lifestyle</span>
+  </header>
+
+  <section id="overview" class="hero glass">
+    <span class="eyebrow">Home &amp; lifestyle · Product design</span>
+    <h1>Smart Power <span>Plug</span></h1>
+    <p class="lede">A Smart Power Plug is an intelligent electrical monitoring device designed to measure and display the current, voltage, power consumption, and estimated electricity cost of connected appliances.</p>
+    <div class="device" id="device">
+      <img alt="Photo of the Smart Power Plug" src="data:image/webp;base64,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">
+      <span class="tag">Product prototype</span>
+    </div>
+  </section>
+
+  <section id="how" class="monitor glass" aria-labelledby="how-h">
+    <h2 id="how-h">How it works</h2>
+    <ol class="steps" id="steps">
+      <li class="step"><span class="num">01</span><div><p>The user connects an electrical appliance to one of the available power sockets.</p></div></li>
+      <li class="step"><span class="num">02</span><div><p>The device measures the electrical current and voltage consumed by the connected appliance.</p></div></li>
+      <li class="step"><span class="num">03</span><div><p>It calculates the power consumption and estimates the electricity cost based on energy usage and the configured tariff.</p></div></li>
+      <li class="step"><span class="num">04</span><div><p>The measured values are displayed on the OLED screen for easy reference.</p></div></li>
+      <li class="step"><span class="num">05</span><div><p>The same information is sent to a mobile application, allowing users to monitor electrical usage conveniently.</p></div></li>
+      <li class="step"><span class="num">06</span><div><p>The user can operate the power plug using the available switches.</p></div></li>
+    </ol>
+  </section>
+
+  <section class="card glass" aria-labelledby="what-h">
+    <span class="eyebrow" id="what-h">What it is</span>
+    <p class="big">It provides users with a convenient way to monitor electrical usage through both an OLED display and a mobile application, helping them understand and manage their energy consumption.</p>
+  </section>
+
+  <section id="features" aria-labelledby="feat-h" class="stack">
+    <h2 id="feat-h" style="padding-inline:6px">Key features</h2>
+    <div class="features">
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>
+        <div><h3>Real-time current and voltage monitoring</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <div><h3>Electrical power consumption measurement</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        <div><h3>Estimated electricity cost display</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M4 17l6-6 4 4 6-8"/><path d="M14 7h6v6"/></svg></span>
+        <div><h3>OLED display for local monitoring</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span>
+        <div><h3>Mobile application for remote monitoring</h3></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card glass" aria-labelledby="who-h">
+    <h2 id="who-h">Where it's used</h2>
+    <div class="chips">
+      <span class="chip">Homes</span>
+      <span class="chip">Offices</span>
+      <span class="chip">Laboratories</span>
+      <span class="chip">Educational institutions</span>
+      <span class="chip">Energy monitoring projects</span>
+      <span class="chip">Small-scale electrical appliance monitoring</span>
+    </div>
+    <h2>Benefits</h2>
+    <ul class="benefits">
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Helps users understand their electricity consumption</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Provides convenient monitoring through both a display and mobile application Helps estimate electricity costs</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Supports energy-conscious usage of electrical appliances</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Makes electrical usage information easily accessible</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Encourages better energy management and awareness</span></li>
+    </ul>
+  </section>
+</main>
+
+<nav class="tabbar glass" aria-label="Sections">
+  <a class="tab active" href="#overview"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Overview</a>
+  <a class="tab" href="#how"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>How</a>
+  <a class="tab" href="#features"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.8 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg>Features</a>
+  <a class="tab ext" href="./"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>All</a>
+</nav>
+
+<script>
+(function(){
+  const tabs = [...document.querySelectorAll('.tab:not(.ext)')];
+  const secs = tabs.map(t => document.querySelector(t.getAttribute('href')));
+  if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver(es => {
+      es.forEach(e => { if (e.isIntersecting){ const i = secs.indexOf(e.target); tabs.forEach((t, j) => t.classList.toggle('active', i === j)); } });
+    }, {rootMargin: '-40% 0px -50% 0px'});
+    secs.forEach(s => s && io.observe(s));
+  }
+  tabs.forEach(t => t.addEventListener('click', e => { e.preventDefault(); document.querySelector(t.getAttribute('href')).scrollIntoView({behavior:'smooth', block:'start'}); }));
+})();
+</script>
+</body>
+</html>

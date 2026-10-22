@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="The Food Serving Robot is a mobile multi-tier trolley robot that carries food and other items from one point to another, reducing manual serving effort.">
+<title>Food Serving Robot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{--mint:#c3b4ff;--accent-rgb:195,180,255}
+/* Layout: a single phone-width column of frosted glass panels over slow aurora light, app-style tab bar pinned to the bottom. Accent (--mint) is set per product category. */
+:root{
+  color-scheme: dark;
+  --ink:#06141a; --ink-2:#0b2229;
+  --glow:#2fb9c9;
+  --fg:#e9f6f3; --muted:#93b3ad;
+  --glass:rgba(220,255,245,.07); --glass-hi:rgba(220,255,245,.12);
+  --stroke:rgba(200,255,240,.16); --stroke-soft:rgba(200,255,240,.08);
+  --photo:#eef2f1;
+  --f-display:"Unbounded","Manrope",system-ui,sans-serif;
+  --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --r-lg:28px; --r-md:20px; --r-sm:14px;
+}
+*{box-sizing:border-box}
+html,body{background:var(--ink)}
+body{color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.aurora{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.aurora i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;animation:drift 22s ease-in-out infinite alternate}
+.aurora i:nth-child(1){width:420px;height:420px;background:var(--glow);top:-120px;left:-140px}
+.aurora i:nth-child(2){width:360px;height:360px;background:var(--mint);top:38%;right:-180px;opacity:.3;animation-duration:28s}
+.aurora i:nth-child(3){width:300px;height:300px;background:#1f6f8b;bottom:-80px;left:-60px;animation-duration:34s}
+.aurora::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,transparent 40%,var(--ink) 95%)}
+@keyframes drift{to{transform:translate(60px,80px) scale(1.15)}}
+.app{position:relative;z-index:1;max-width:460px;margin:0 auto;padding-inline:16px;padding-block:14px 120px;display:flex;flex-direction:column;gap:18px}
+.glass{background:linear-gradient(160deg,var(--glass-hi),var(--glass));border:1px solid var(--stroke);border-radius:var(--r-lg);backdrop-filter:blur(22px) saturate(140%);-webkit-backdrop-filter:blur(22px) saturate(140%);box-shadow:0 20px 50px -24px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.08)}
+.topbar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 16px;border-radius:999px}
+.brand{font-family:var(--f-display);font-weight:500;font-size:12px;letter-spacing:.04em;text-decoration:none;white-space:nowrap}
+.brand:hover{color:var(--mint)}
+.brand:focus-visible{outline:2px solid var(--mint);outline-offset:4px;border-radius:6px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;background:rgba(var(--accent-rgb),.12);color:var(--mint);border:1px solid rgba(var(--accent-rgb),.28);white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.dot{flex:none;width:7px;height:7px;border-radius:50%;background:currentColor;animation:ping 2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(var(--accent-rgb),.5)}100%{box-shadow:0 0 0 8px rgba(var(--accent-rgb),0)}}
+.hero{padding:22px 20px 20px;display:flex;flex-direction:column;gap:16px;overflow:hidden;position:relative}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,8vw,36px);line-height:1.06;letter-spacing:-.02em;margin:0;text-wrap:balance;overflow-wrap:anywhere}
+h1 span{color:var(--mint)}
+.lede{margin:0;color:var(--muted);max-width:44ch}
+.device{position:relative;border-radius:var(--r-md);overflow:hidden;aspect-ratio:1/1;max-width:100%;background:var(--photo);border:1px solid var(--stroke-soft)}
+.device img{width:100%;height:100%;object-fit:contain;display:block}
+.device .tag{position:absolute;left:12px;bottom:12px;z-index:2;font-family:var(--f-mono);font-size:11px;color:var(--fg);padding:6px 10px;border-radius:10px;background:rgba(6,20,26,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--stroke);max-width:calc(100% - 24px)}
+.monitor{padding:20px;display:flex;flex-direction:column;gap:12px}
+h2{font-family:var(--f-display);font-weight:500;font-size:18px;letter-spacing:-.01em;margin:0;text-wrap:balance}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;padding:10px 0;position:relative}
+.step:not(:last-child)::before{content:"";position:absolute;left:19px;top:52px;bottom:-6px;width:2px;background:linear-gradient(var(--stroke),transparent)}
+.step p{margin:0;padding-top:9px;color:var(--fg);font-size:14px}
+.num{background:var(--mint);color:var(--ink)}
+.step.done .num{border-color:rgba(var(--accent-rgb),.5)}
+.num{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-family:var(--f-mono);font-size:14px;color:var(--mint);background:rgba(var(--accent-rgb),.1);border:1px solid rgba(var(--accent-rgb),.28);}
+section{scroll-margin-top:80px}
+.card{padding:20px;display:flex;flex-direction:column;gap:14px}
+.card p{margin:0;color:var(--muted)}
+.card p.big{color:var(--fg);font-size:16px;line-height:1.6}
+.stack{display:flex;flex-direction:column;gap:12px}
+.features{display:grid;grid-template-columns:1fr;gap:12px}
+.feat{padding:16px 18px;display:grid;grid-template-columns:48px 1fr;gap:14px;align-items:center;border-radius:var(--r-md)}
+.feat .ico{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(140deg,rgba(var(--accent-rgb),.25),rgba(47,185,201,.08));border:1px solid var(--stroke)}
+.feat .ico svg{width:24px;height:24px;stroke:var(--mint);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.feat h3{margin:0;font-size:15px;font-weight:600;line-height:1.4}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--stroke);transition:background .2s}
+.chip:hover{background:rgba(var(--accent-rgb),.14)}
+.benefits{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.benefits li{display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start;font-size:14px}
+.benefits svg{width:22px;height:22px;stroke:var(--mint);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-top:1px}
+.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:10;width:min(428px,calc(100% - 32px));display:grid;grid-template-columns:repeat(4,1fr);padding:8px;border-radius:26px}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;border-radius:18px;color:var(--muted);text-decoration:none;font-size:11px;font-weight:600;transition:all .25s}
+.tab svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab.active{color:var(--ink);background:var(--mint);box-shadow:0 6px 18px -6px rgba(var(--accent-rgb),.7)}
+.tab:hover:not(.active){color:var(--fg)}
+.tab:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body style="margin:0">
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<main class="app">
+  <header class="topbar glass">
+    <a class="brand" href="./">← ALL PRODUCTS</a>
+    <span class="pill"><span class="dot"></span>Robotics &amp; play</span>
+  </header>
+
+  <section id="overview" class="hero glass">
+    <span class="eyebrow">Robotics &amp; play · Product design</span>
+    <h1>Food Serving <span>Robot</span></h1>
+    <p class="lede">The Food Serving Robot is a mobile multi-tier trolley robot that carries food and other items from one point to another, reducing manual serving effort.</p>
+    <div class="device" id="device">
+      <img alt="Photo of the Food Serving Robot" src="data:image/webp;base64,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">
+      <span class="tag">Product prototype</span>
+    </div>
+  </section>
+
+  <section id="how" class="monitor glass" aria-labelledby="how-h">
+    <h2 id="how-h">How it works</h2>
+    <ol class="steps" id="steps">
+      <li class="step"><span class="num">01</span><div><p>Food or items are placed on the trays.</p></div></li>
+      <li class="step"><span class="num">02</span><div><p>The robot is started and moves on its wheeled base to the serving point.</p></div></li>
+      <li class="step"><span class="num">03</span><div><p>The items are collected from the trays on arrival.</p></div></li>
+      <li class="step"><span class="num">04</span><div><p>The robot is then ready for the next serving trip.</p></div></li>
+    </ol>
+  </section>
+
+  <section class="card glass" aria-labelledby="what-h">
+    <span class="eyebrow" id="what-h">What it is</span>
+    <p class="big">A wheeled robot with a compact black base and three stacked trays on a steel support column. The trays hold plates, bowls or other items while the robot moves them to where they are needed.</p>
+  </section>
+
+  <section id="features" aria-labelledby="feat-h" class="stack">
+    <h2 id="feat-h" style="padding-inline:6px">Key features</h2>
+    <div class="features">
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>
+        <div><h3>Three-tier tray design for carrying more items at once</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <div><h3>Wheeled mobile base for smooth movement</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        <div><h3>Strong steel column with a stable build</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M4 17l6-6 4 4 6-8"/><path d="M14 7h6v6"/></svg></span>
+        <div><h3>Compact and easy to operate</h3></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card glass" aria-labelledby="who-h">
+    <h2 id="who-h">Where it's used</h2>
+    <div class="chips">
+      <span class="chip">Hospitals</span>
+      <span class="chip">Hostels</span>
+      <span class="chip">Canteens</span>
+      <span class="chip">Restaurants</span>
+      <span class="chip">Hotels</span>
+      <span class="chip">Offices</span>
+    </div>
+    <h2>Benefits</h2>
+    <ul class="benefits">
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Reduces the walking and carrying effort of staff</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Serves several items in a single trip</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Saves time and keeps serving consistent in busy places</span></li>
+    </ul>
+  </section>
+</main>
+
+<nav class="tabbar glass" aria-label="Sections">
+  <a class="tab active" href="#overview"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Overview</a>
+  <a class="tab" href="#how"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>How</a>
+  <a class="tab" href="#features"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.8 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg>Features</a>
+  <a class="tab ext" href="./"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>All</a>
+</nav>
+
+<script>
+(function(){
+  const tabs = [...document.querySelectorAll('.tab:not(.ext)')];
+  const secs = tabs.map(t => document.querySelector(t.getAttribute('href')));
+  if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver(es => {
+      es.forEach(e => { if (e.isIntersecting){ const i = secs.indexOf(e.target); tabs.forEach((t, j) => t.classList.toggle('active', i === j)); } });
+    }, {rootMargin: '-40% 0px -50% 0px'});
+    secs.forEach(s => s && io.observe(s));
+  }
+  tabs.forEach(t => t.addEventListener('click', e => { e.preventDefault(); document.querySelector(t.getAttribute('href')).scrollIntoView({behavior:'smooth', block:'start'}); }));
+})();
+</script>
+</body>
+</html>

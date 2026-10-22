@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="The Calf Massager for Blood Donors is a supportive healthcare device designed to provide gentle, rhythmic compression to the calf muscles to encourage blood circulation in the lower limbs. It aims to improve donor comfort during supervised recovery during blood donation.">
+<title>Calf Care for Donor V2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{--mint:#ffc46b;--accent-rgb:255,196,107}
+/* Layout: a single phone-width column of frosted glass panels over slow aurora light, app-style tab bar pinned to the bottom. Accent (--mint) is set per product category. */
+:root{
+  color-scheme: dark;
+  --ink:#06141a; --ink-2:#0b2229;
+  --glow:#2fb9c9;
+  --fg:#e9f6f3; --muted:#93b3ad;
+  --glass:rgba(220,255,245,.07); --glass-hi:rgba(220,255,245,.12);
+  --stroke:rgba(200,255,240,.16); --stroke-soft:rgba(200,255,240,.08);
+  --photo:#eef2f1;
+  --f-display:"Unbounded","Manrope",system-ui,sans-serif;
+  --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --r-lg:28px; --r-md:20px; --r-sm:14px;
+}
+*{box-sizing:border-box}
+html,body{background:var(--ink)}
+body{color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.aurora{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.aurora i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;animation:drift 22s ease-in-out infinite alternate}
+.aurora i:nth-child(1){width:420px;height:420px;background:var(--glow);top:-120px;left:-140px}
+.aurora i:nth-child(2){width:360px;height:360px;background:var(--mint);top:38%;right:-180px;opacity:.3;animation-duration:28s}
+.aurora i:nth-child(3){width:300px;height:300px;background:#1f6f8b;bottom:-80px;left:-60px;animation-duration:34s}
+.aurora::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,transparent 40%,var(--ink) 95%)}
+@keyframes drift{to{transform:translate(60px,80px) scale(1.15)}}
+.app{position:relative;z-index:1;max-width:460px;margin:0 auto;padding-inline:16px;padding-block:14px 120px;display:flex;flex-direction:column;gap:18px}
+.glass{background:linear-gradient(160deg,var(--glass-hi),var(--glass));border:1px solid var(--stroke);border-radius:var(--r-lg);backdrop-filter:blur(22px) saturate(140%);-webkit-backdrop-filter:blur(22px) saturate(140%);box-shadow:0 20px 50px -24px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.08)}
+.topbar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 16px;border-radius:999px}
+.brand{font-family:var(--f-display);font-weight:500;font-size:12px;letter-spacing:.04em;text-decoration:none;white-space:nowrap}
+.brand:hover{color:var(--mint)}
+.brand:focus-visible{outline:2px solid var(--mint);outline-offset:4px;border-radius:6px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;background:rgba(var(--accent-rgb),.12);color:var(--mint);border:1px solid rgba(var(--accent-rgb),.28);white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.dot{flex:none;width:7px;height:7px;border-radius:50%;background:currentColor;animation:ping 2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(var(--accent-rgb),.5)}100%{box-shadow:0 0 0 8px rgba(var(--accent-rgb),0)}}
+.hero{padding:22px 20px 20px;display:flex;flex-direction:column;gap:16px;overflow:hidden;position:relative}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,8vw,36px);line-height:1.06;letter-spacing:-.02em;margin:0;text-wrap:balance;overflow-wrap:anywhere}
+h1 span{color:var(--mint)}
+.lede{margin:0;color:var(--muted);max-width:44ch}
+.device{position:relative;border-radius:var(--r-md);overflow:hidden;aspect-ratio:1/1;max-width:100%;background:var(--photo);border:1px solid var(--stroke-soft)}
+.device img{width:100%;height:100%;object-fit:contain;display:block}
+.device .tag{position:absolute;left:12px;bottom:12px;z-index:2;font-family:var(--f-mono);font-size:11px;color:var(--fg);padding:6px 10px;border-radius:10px;background:rgba(6,20,26,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--stroke);max-width:calc(100% - 24px)}
+.monitor{padding:20px;display:flex;flex-direction:column;gap:12px}
+h2{font-family:var(--f-display);font-weight:500;font-size:18px;letter-spacing:-.01em;margin:0;text-wrap:balance}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;padding:10px 0;position:relative}
+.step:not(:last-child)::before{content:"";position:absolute;left:19px;top:52px;bottom:-6px;width:2px;background:linear-gradient(var(--stroke),transparent)}
+.step p{margin:0;padding-top:9px;color:var(--fg);font-size:14px}
+.num{background:var(--mint);color:var(--ink)}
+.step.done .num{border-color:rgba(var(--accent-rgb),.5)}
+.num{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-family:var(--f-mono);font-size:14px;color:var(--mint);background:rgba(var(--accent-rgb),.1);border:1px solid rgba(var(--accent-rgb),.28);}
+section{scroll-margin-top:80px}
+.card{padding:20px;display:flex;flex-direction:column;gap:14px}
+.card p{margin:0;color:var(--muted)}
+.card p.big{color:var(--fg);font-size:16px;line-height:1.6}
+.stack{display:flex;flex-direction:column;gap:12px}
+.features{display:grid;grid-template-columns:1fr;gap:12px}
+.feat{padding:16px 18px;display:grid;grid-template-columns:48px 1fr;gap:14px;align-items:center;border-radius:var(--r-md)}
+.feat .ico{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(140deg,rgba(var(--accent-rgb),.25),rgba(47,185,201,.08));border:1px solid var(--stroke)}
+.feat .ico svg{width:24px;height:24px;stroke:var(--mint);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.feat h3{margin:0;font-size:15px;font-weight:600;line-height:1.4}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--stroke);transition:background .2s}
+.chip:hover{background:rgba(var(--accent-rgb),.14)}
+.benefits{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.benefits li{display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start;font-size:14px}
+.benefits svg{width:22px;height:22px;stroke:var(--mint);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-top:1px}
+.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:10;width:min(428px,calc(100% - 32px));display:grid;grid-template-columns:repeat(4,1fr);padding:8px;border-radius:26px}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;border-radius:18px;color:var(--muted);text-decoration:none;font-size:11px;font-weight:600;transition:all .25s}
+.tab svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab.active{color:var(--ink);background:var(--mint);box-shadow:0 6px 18px -6px rgba(var(--accent-rgb),.7)}
+.tab:hover:not(.active){color:var(--fg)}
+.tab:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body style="margin:0">
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<main class="app">
+  <header class="topbar glass">
+    <a class="brand" href="./">← ALL PRODUCTS</a>
+    <span class="pill"><span class="dot"></span>Rehab &amp; assistive</span>
+  </header>
+
+  <section id="overview" class="hero glass">
+    <span class="eyebrow">Rehab &amp; assistive · Product design</span>
+    <h1>Calf Care for Donor <span>V2</span></h1>
+    <p class="lede">The Calf Massager for Blood Donors is a supportive healthcare device designed to provide gentle, rhythmic compression to the calf muscles to encourage blood circulation in the lower limbs. It aims to improve donor comfort during supervised recovery during blood donation.</p>
+    <div class="device" id="device">
+      <img alt="Photo of the Calf Care for Donor V2" src="data:image/webp;base64,UklGRtopAABXRUJQVlA4IM4pAACwJgGdASrQAkMBPpVIn0slpCM0JjK6eoASiWlu2A1FowtXiOyqnFdjv3R2tGahuDAwSFNxNoDrfH4wcsZkrmqwcnB+lxA9aqBxa/h+LJevLVx5tUhuxxB1PmgIl8C7Bw1/uGRq5Y1+gTeoeuv57U5I4ox7+dDl/4SUrVzKP7u/WyeYAWPCc7cyHw8To0OtSDMjJVS31munyG1uzX5aLFmwPrPeXqdDVLdlQrhe8K5RTxVJMdPdK9jW1ZJI7Bx5LcNngoFbyYoGgfec/mTmsWgzCFhvbr1Z9sD/76ID2YmaK6ewWQD/O/6ee0iOyJoaXYF8wk7R5fgskjpvCGg1FP+4vyT0YXflYOG63omlXHfEWFMDO4o9vyIhQibomgDmNrDepee78XBGpx3S9OGUNTdw8Dre43ZqQCyrjiLjDTNQneyHzfySrQAq7cLGR3qfNWUjZqltOZjGGgq9zIA6F666CY/mLvRLG+cmnWp5jNXu4OxtTFh/7OvUAcyzZ1BD5jdr8/HstjNGMcIaictXpbNH52VYqAUuK95rp1wf5gHhNlghlUj9wD3+hVOH4dtfitIMzdOVeVX837DdoaD+QfIPDhLGU4GwLCOttnX6EmKshLaY0uI8E55K5oZaLjFaOAHid6pYN2HiIqSAdq9Sc8l399FqLY726nDYCd7i4x+LSDUsGEdGiw5i8CELhyPV7ItTqQFFHw5izJlTmvBvkgGwYr/4mwayBneylXSuf34Afo5YQVg9eHzM59AUdbZTQ+HDLwO5XAEMULArKZFbubBA12DOEOJjKtoNkRaFNejuliPLR/LAcXKHGlbLXtE+pOxkQD/OBybfSXvaBnBS4tF8oURAL4WqwRKiO8VkhXJtyrY1O9t6+J6/+yY1UJWfJnCC0rI1biaF4gk72BGQGxYG96LKGD6ZdU3OYUXr0fMIiJJlB2wUaYM96O4pvpe5I7Jg0c8ClQhyzp+8ykkh5Rrw2D+a4LtmZrX7hw8HkpaUHLt8v0Onk8cjMD9SZVSaJf1tMFZXAaQOa2/pHUApfvhje9rOkBV83GxFn1pL629WQX1n0NWzZkB37ck7UaTGrtsIXW4FI845lHAj8skiSz8cz035ik5LZyWxIW3dnWV8hI44PVjGeI32kVnQGU3Qc4t7PaStuQ57VwJN+KkFuhae1g6vXmNk6vPNZcLXcUXgnAuwGEi+n+1ksoJiZwzGQGN7yQT2/oqQbvbl2L80ggQbUHSNV1lhrc23rEP4occIDzRSAn4Lo4XV4hgNeKS1XH3XRTG97/nptwUnBmTo6b16rASh1rc+1Xmqr6jkkmAYSBPLdZQzX25AB0yMjDbcig2c0EcXVXMcX/iWCArEOx76xN5mScTe22neNV0vJBRgwk1SQwyMstMsNArCNZoWSnkMlZyatFSWxsceedUbUWHk1BIk8BwuybjItpQskshLmgPhIPIfXy0OOc//XJ6bUAw7BtIgS2MGceCQXBMQSEcmuSCvohef4XZ6ZIqTjvHF0iGIkMjIDl4/mJHD1H46CdJexxN6dO2pJIkPjw6rltDdJhO93y6a4/3ra2+oTjZdt6Mg5X7IRLcbpaCkz7M6YnE8yDskwQGaRDCX2ME45Ce+XKP1dLMmNkI779KdZIEqVJCI6khkoRGUs2+1pVYEod6HdFxh8+93AT82yl4Xp2V7HTtj3lsKIgPs7foCnyko2hfGQFWqohdQPQOq7sMvq4xYzwS+BskxmffFmjvFFSe8NbpDcFYYvTp2qJhwaYVdOjPF6dGdELyNlfzWZoYoXfPZYGpSseyssgszxkyHKEFvoYL1irJhRX1x2NcL/NnMRmIM9EvRsqtKgtPE7C5SWIIgwggnSge4udOuxQAA+l8qdysWd+nehaZT5FkKRYpFI14Mr6jKRzrdxUobRo5XApIlTFXGBnj4KAlRfKs2UWTqzVEdq4mOve6gvUA0DkFVTH3wali+SKT+YhPbLly9wWa7ccQXtdzY5OrNpGivKTAg2Bu11UuYbHPVCRqACVeW5sWJhSLHf90XAaSmhO8pDNmcLgWxcla2bQ8cW77n4nR3I+t4AADVllVzwH0CRBPhzWb5W45y/WHIOaly0R42Od9oeHWG4OgjzYlUyliEB8BUb1iLeL31bAXX1vheG+faYI4RWr1nFU7ZuCmah4MXGFYbwVwcApBO41xfX14I9rhb2k2MoQ3BakyevVk1tVYwZ//+eG1iyI0gWJUjP3sY2L5o2ge65it+IeVWskv6Ka+R4bYkxX3GyrFCk1W4RyWK3rf4zf/hVMaz8+Ihr9ihNsX2J+LQyG0B4zMRzRF6aIB4I3biXwfWeqxo0V7g2cPtS4WMlbmaNtylNcmeGZxexjOiUDg9ha2ZUYxp+JX80TAumDdqJRPbJ2wrP3ZgKcBnalwx1e1uyZgRD9PUYBn2Ssg+pkT6cx7vaBnBLpUInSi7BjYIuIaUZr9xZkSLN1dvM0JPEoHMakXevmHNY6oGM1KWpzardxoX2Jfl9H1ePRT5nTD3rw8Ch0PL6rq7JXMQP3t587YEnITGhbk0ypaasi0e8lq3pApBzpapCel5UAUPG7fKvCps65QeerGqHWlF8jeF1QT5urAaSUZTZq/NVk4ipKngPP5AG8SO6LiaBVuHQiePTkQcNnrPpyZuVhpqs8JV7WDtkjd/mGJ/yUuS6yr8TvkYj8eeHDbBnS7INhd29Y087Ew6IjlbvU60MOsQoUKRY3ZIClJRRrBmEvMSfeUH/BU27aj6HesYM0mff/yEtEgr0VWjnf7RAv2iCzSPzGaL1zOyUodW/u44O+A05K6qGSmbF+gsXXFIflAq0eY1iq4cLCf6B987ggQPfbG1LdAj8khXq/ojeaFFN/3cz3URNBNzs2+de3Xd0o9hRv7np6G3wIZRTuMuEaso9Zvh5edbY2c4kyvftlKG43Kj6xzwNDJ4XLfQMM6cUCeE7SsB1Ilzl4JugmEl07jcxqZSwYBpy6JuDuyIlm14xOmisqcMXtbPAwjSzyu1Zdzd7ZRTQT8lonTfRJolEs70IaZXD2xWxA0JW+A7yQpgE5J2iIYyaGLUCb5610NYfhhJFeCJc9+wwJRcl/6ikkR1K0IVJUMPtg2AcYPDJaFT/9ZwL+abVn7u2ucQ0dZ/YKveAAD+91R8Cx7qz6wGCHmcDos/eVQj6LMJPFdUxkfk3NCbk8Trx6Nm36k5RtDbr9dDkyDn+cdy5OnbJxBIhZh/kz+080P9ONeZ/Q+eb92FIBgNeMM5uLb+dxF6J1AImQCt1Gwz8pGzpdf5SBnMYGktMKQsvNoy8rq/rHY105AzW5HLSZZEKvhLZU17Z6SJWkvr/Rlvj5lkWtRH0+AeXtx5OuukPS2WKW1vfCkHG3dBoozAyFnJx61BOYUaswTugcr6jRP2zlbdf5dE5+cQNDaLyxdliC8RY/k3mPhVEDATzgIn1fdONTUkwrjcRbXA2w6WDMBmhlWhspIOQ8bV4riXcljSRCHblnSZ7xO2wBMVd/NkPzqjbCJYOC10VDMb1sup4zTIeO9zYCbaK2Yp4/lDhxmTui93cooKKE+w40WSUhu6ud0dOfpHY5Ee6bm9F0tg4+Vo76JdjbV0AZMZymNi8YgclPyC6ZUZy99dawNtnjInhBsEYZ1eqLEkJBhFU3Tax8VM5tOKRcLuoSiF5/2e9Slut7dnNUgTVHW30Y+Qyb8fFq/F3Oap77v3byqEY7MM2KLHvtij4xI5u9O4mcyewyXhXOO0An8UVNYbfQGDuinxEY/2w2HRFblFLx+pR0i5Ko+FFd996nzaoaIu3ARD8tuADtY+iSc56smCOlf+I8GAo535ttt4sxWZ0XCx6WJ8ZfCuhjZj86eNcV581UznHA+kDRlEkHFMfM1hOS/qvEzQnaZLVg6b+xRStCfGILniyX4+MEdgIfWV0YjnnLdUFJFVKfh1mRzfv9wKREpIwxHQpHW4u1uSYvG0CVwOnQZrsQAAXP+8/5bWb4R9pMGn0B5L01ONfmbX8LJxbm0jKG9vPK88EwQnJT8uVu+7/dk6C2l3vt67mXyTXZIYJ9ts9ercAb+t/6udHcVlCLu7lFCaq6oqK4nFWUhUX/qm7NbTrkiCF9xtzxITVEoK/eF7pv19+PrKufwltq8vFOZ7bs6hWmo8dyN6gCp1lyCt3VfM/yPMrrKXteCDV5nTBIch0zpHnAqhPsK/+P2jHZEMan65mWT1+RVSlAJT2e3eWl5kmaQKZ5uITknFxqnWj7fA5c6waE3s62ghjlei4SbXm9pGZel59DpuAOTU511Iggoxpr9qmOfH4S+lEp3MYdqFxzUl7axCwxo83xg6SrQ03/6dQBF4p7bf/LOM+HbmB4AA0oBdDveaOoTUS+jk1/Vh1XNQL/1BhrGHK/MdiOtdpwau5DRYY3XC/N6g+tEeAI5yumhcApBtPwuELYZxf/D6mmUv5e03mq7DraPk0cc3CQSvbjbwQIbeqfupZww/9hqE/EMHFIHRD6+wNiz54saehnK5UaiI3GVCHm+BQBQRUBKCZuT9XPfQgiXjTd4U2WU2nm2cHQlpnWuEgP0JZ21H23jH4m+WPMWYDwHtjHzUhdTX/L9jTti61aZuunSD3JG9KQjh7tllU6liNWvylg7S3bKG39dBdp/KOZer5j/3tk5YBwqYD7mVMLo/Rniu9TNAK1m578TtWHsl7AgbFebhoQAuDvLZNlMfFY71nwqBe5odfTT04R72WfPseLk9vxNqomsQLXMUR7yzsSIACFQggmn0NUadQgDP11jlXAIwWNpEkK6vU7JeK5jEPYNer02huQLypcZ/LmDqdYJHM8W6c5j4CDwcdM9l/jcd0YH6KdtoOuriTwXpirg+Q95+dVetlWnqvthy80BMRuyLZCUP6BGiVyGuZZqVfMu2tK4Fznc6FFfFoHFlutpnZR8BlDznvjvHse47gte/f7Az6UyKycu0DNqXSTatZPg/89MA69M1mirlRl9XKT5We/MY187r/vuUAEEibANaDBG5g5SbJxj7zk/i7TWvxNLUxN4mAU8OgpedMHHAEZluAC03fYyM85S9WOhI+52jWnJGauFsSHOaeW+mIgukkD/LtvcX3yiNizE/5rZnIfWJxagB52GJxDMpwa6uh6cUgcoUXCOwEXiij1PEDA1ZyuH6JKYlXupZFxJsw6y/E5gp5Oa+yOLowUVqrKuz91KUcip/n+Ze1asiKKDwx6lY1vtUL6+h0fv12IbtXohBJeNBv2b8WwiqGe0iNBe3Ks9GbxWjmeLYWfhqWgJf28P5TJpZfxe0HwCHgAPVS1iLHw4V37AjJY+ohh02MdQ0hrMRQYJmpGp6n+SGjCcVgzBGAV1jhgIM2Lg3yZRKBHN7EMO/peL2OP5+4sS0OnYouTqhYvcg+W/iCDZNMabtxMbd56jUXkWHFkQwlSAa6W84Nlqr9jjvp2DbTbEpBZRyJvn/GMSyRMDM17VfKreT4vn/4KgDF0DnVROZlZbwB0HLEPxFAzbSE7X7eHmT1nsv2LU1C/PDbMtjiJ7uLZWkCfjpIFPcsWWSXRDjo8ZbU3QTpk9cdcENk5ZcsNOcvy483xBDm6LeEbif0GEXPEQ9ehKrSZi8aDMOgzK20tnNnLvosr8rD5WSkXBna9pyQPDt97VMpN2HOhFd/FGab3J4RZUnz4GYYU3y84tCz4vqRpLjkMw7qBWn+Yy/0DgC4Xp2FzzIGESndRFEajrhBDJu4XLrMXBAl7Lbe+s2/OISS9Z1Z9ifboNPoQ/txNQWAm2t1qCmaDeSucnvmHmtwaq1jeMujJhlJh9w7HbLIiIhSyRT1RS+UFCn3sStwx8GZSYy2zcUV+Zr9pwnTkiBr2wKzKSlIhernycaGdKCKFql8C0UBSV3ptXLU6fqREbPjwTpPyEI9n53M/8CJveg9URvnQ5jfF/Ckah2XF6tyzHrjTzRHz6S8SIbT43xjbvZ9zBGxAvw5VTDPFLmuZ7vQS1gHXcslVGuBwKfaZkb+6QTqL7Bi6tNZ5NRZNEs3bqbGtCYiQtFmRvqD8NPA265AMLewJCDmKc0Du+BN1UhUDq1hTez4DTUrV16wdiZBVRwpYF7oe8qBkujoInM2XnjvqTB+2gKLHEbYiBbZREFAWk6xAaqwd4XgcEesP7uVg/GCGTuQvfKSs5EjDyd6pbJHeUhslIDRT/8FD5XYUGKMy12p24bx3tGPFF6FapgwcXyiNaKYIw05dqvAQBPgCfJ4560Cu+RTLsiUfh8k3/ZgVs7XCks4D4pYp7FUYV1lAr953rE0nzWkewjRxTcsUo71ZacSmFDPXYaD9/k1Wk6SrHHk5upHYlUuYlY3Mm2WFvW7cKbw8ZWoQOM4HJoQPAjIqUzwz5qS2mOF1cfwAaK7FJWo7JEJuEpjkPDTL1OPHnOgmwA5uW9jToTZ6wgJUOQLAqrNEQU66mD9n4NdLyX11n0FPUeCTPBBWplEtAfrorQFRcQ34LF0C6kNE7m+cGRPsXx5PgjhKFpV5pSje4VbBtS9s79lO8YJ2rF2nyTKiJEcfOErrI/Sn+zMABZPbxOIf8AumZp5+p6jg5tAXCo8X0dr4FMONHpAZrozXEYEtefYDYW5kxdeRlAsz6RqSjdS5u3bmkhVwVlkBLEAc/qEW/PD8CsLgbJYBYzoWwY6fIyymxxFGwmcRXBGGf9E0qYcTdFZyOD4LHPXAdKE3HDu+VVI9nAvt2HXQW0lrupGIw3nY7mndnpGGsFtpaxNiqLtIYnVTOg7i+OnUpYkNq9VoDxFBz20qvKdmg5luycilYEE507DwYSVdKIAmERSezpQPeG2pZHYk8vc6laLcJJhhub39k5kL3C1YWczrjCpf9J4M8frALnUEtw2qoXcxpEl9E0i03F2s71jhic00YetWNPWX+f89G2qWn+JYkosTpDmEQoHA0JnQrfmFSPfFqsAEBQ6ZNnJCQb+fhjlbhvbkEdO8ZMp6gXelm60akh2csUNmapiHY9bjKqKfTOWZDd/CWXq91R+jR2/GRprrnX4HHFCg18utiwVsRxRoBb76MtUyKWY8M/+z4rHvuqSZzUx8cgPewu7RM2RHjTQD1vceuQbMIpPCkiIZY26eBYhFhkeHq2BvXsNsb/bN2pvd0NkM/5lCi0hshZUhhMryuqee7iqqHm0D+7gym4RjFs94tjKOA48GUtOwyDLFp1u3XxwaRRCl3aIVADkYdyb4I3nUVE7Et+if3lCopv+JXEdlECw4lB46ljWfjny2rk8yQyJoFlLDENm2zWUJEIQr1snKKgnuefTk/SLKnco3znF6QK9p7KnoR8qvagGy4UfNiFK6PoqyDGB9PbtYp/lgCLpgW/F9h9VwOyh/A0t1F70v/bpniReKpARO6Iyt6WRuAco1LpErNBUDfH/wLaNagbcQm/NSVJTkoAuWZlYr+MXFUnraTmlDCoL57KK5KLszjHWQjFuougonF3/44aT7+dRWfrwMkqTAdc7nd1ws3pphqou3cM7cV/vc3o3VDJpKEdBD5GkyqIZMeJDTrqrT324lXCOR5pUKl09wjhC6iazfpt/lS9MloTDj/l9MpqJRvdhzFXaaz9jcxFDOWAH2af5UMWaXgRdyIBc5d0qBYYoY3SXzNQG1aZCpoV1VklN+2OUjweFRxrRppFIRrCM34se8RSaXm8cV9o0ZySKQszmT8Pn4uAMhTm5hB+aoNhfpicWiKtm70flWUVuh+RfKTZOmn0zd/URbYTEsMKTWnH4vEXVkzK9IdrNMwpZbF7QrMf+iXH9AtBzM4bM9vqXf4euAdBIFPM0OurzFlXCpndI2WSZHyIkrusjGX8Z/Ah8PnqKf8MiSdk9aQ39McuVzlz7ly/nRp5YbHFB8Ga5aRLZLI0YHgeHUaT+DIHKH0uYqFAP5y2oAZbQoIZ4t9ifMDDvdRX7F77tfoXsKezvkRP+GpRlFyd3vCb1bsKUD9pIO+q4G7/UGHsUXm9qIT3Hemus63rIK8MY1hF2UrbZC3X7yaZ5R2cLqkpGXtUqiXSTICTVQiySMXadrdLtmSQR4XVT5fSX8w5T6mvceYXnE8jhZqjgROsus1MoHD8yUMx4EUXwilYPy7lt0cZh1Y9EIuXXQ8wPWtE6inQV6uxrZEh2f3JUuzX2+lV/sHzbvoAoiAS2i0DTCHZw2q82iYd7s4JYSUAt5lbCTgcC10De2N9Bj7xT/kVZebx3lK89eKFMrATY8LyL/T2K6gnNV44wx9Qdvlqvkv7+EG2khTJTDJ5YLpsYpam8Win8qmlvkeMLL0kNmOar+dTOIrZt/OC8n2Ihz/PgyU9YJO1gIiaJQiEeLNNMc6IQyS+Dw2NyfThmnW1M+LM7aSDoaLhkfi3tyHjyTVrsU1FUqaxUs4jRAE2A/CuuKhXSte3GKstJnr8fAKAPfX/HHUcsY2XhVqaUFZDWjUFhunf1FDEJ7AsX1O2OXg+QENFSw70UUvk7j+SrDUDUPe/TXElgLpOt0x6DdY8yL/paeBMkNw1FxVxrhv5uCLpvqqOU4k1noHTgGdBj7qmoIZNydpRpoTWRRh67ULISSxnnMshdOCTlHoBgcZv8+FFDQToa6pDKllQdMk7+iLbjjw2HIv9OIrgRXegXcN64IfVYaWVhPWg1+xVuBLEGmAPIee77CjZ7pp1MV08F0Vwo8I+2ZgBA01Kw6Vm1WfXGCzeA9ZQzxOx0PIRjCEhNCGsbNJNzFRYcqKekQhzDTafYAGkHALfuUI/Y+GdaRAIJi6zrxiYxqFLnca/3XwtmdGXzuHabEPskaQzD098aChU7g3/Efk0vV6RDcB4EUtEN5VRnRC9QVXDLGgogwcWK0KyMqo/rYHrITJ0hergxkfGPJG3x1j1SejkUZBQ5fLnQrfwup36lSDgPIu/Uqa20hW0o3GayXkQ1Wmg7AAtDTPSVzekoB6g1gj8ecvfiI0xJ6s4E/HvD5WBaRLZONWy5wjm0QJHWdMbEIt8hkQfbOIZVfbwqK2kB0e5t7P/gJ+E4NHGsd09+DtSJoD0Vln77Jg/uZKxSZqqjQRR7/WeO9Q1eZiBlp+wPrAAig2wF+vwQtV6imbW0nEJrAlbZaU+8h/lOfG+72CnAS1/Uj8in3qhYu8zIsy65mknKQG1X/xMVNY/iuK5/LOds2C2WvIzzSWe4lAhmu3B0NAUQKSj3aZj+Ibm7Kxnfgr7sTL0KPGp7RrytyMEJ2yadiJdruK7akRcJEg6rcAfiUY4kCEFO/YC2X/RYx9jGGRaA5tiXShST68FE4CNFQcsHn93WFJ1onby8uv++vX8su93/LF3dY4yxtcKIiHbFDdfR1aSrXdmzTiEmpQK2NoTn7lUxqmOndEfV178gzGxJ0DUio0sZXdEcOG4BB8o+/z16NQQQ5diUKr6VMO0nznjiMRjscSSeM+rYBOxo5FuyIF+Rd9M9FfvuNnQDTmjfHIxRCVARnuettArFYDbRkmoiUgI7M39zf/Iw3IEnA4HTqontoG/2tmxJl1xUTHuLf0Mhi+D/J9NFr/N9/TuXHZkb/2IgzpRmdAlCenZnHrWJJEYtgylX2AMuGHU96wWhsOH67UCYzU5kmR3LfsOyFtrAMLyssjrbjh8t16Kn9+RgJWToWW/s5BHKZD4Y2/mhusQX7jF1gCHJ/3c2qijw27GYGuKN1xVTNtqU8dxgLwf+JWjDA+iUcbNxWbhAMQj7brmcYqCB7bzUGOwDbC0DXNeNgAzHw3wEqfy5piCJD+hLoylK8pLCOKgP3dnPTb6Nx+OmKu0z9ItGVunzJXCwSC3m0gtJwuEbIjyv4p7u0sqKjhP/q/Ao6moBJAc92BJRzttFB49kVSUqvKUhkdRNWc5QnrlBISSCG2iIY2kQjzGKMvpSnGgmWnK6M3Z84W95T4SNYfBm4UmgT+HQaBDJNXS21JLWelOSV3Pzx18CHoaB/W07BiiIUcroyo0O8VaJ2xmQGwRdLM0Pt6rnKWGDia8m1IBO1olaFcrtxgUlnE+3ACg3hyxWxFrJqQjBHjpOij6KKXmCYY+8lvydJvgweVdUfR/iorLKg4xiZNSM+72QwasSgT09GMC6kkcPd/tpj78om2xWYmR5HMWHRNKRN8r/Rlt6vErfOGo9raarxS3IuMwuhhbpZV12lpReK8uONZhK4N11Hu+UbAaAgC93i2J8HGcOIrNW/WOl7D3evWPgzv1UaoYxty1rCiRz+9Mtc55crBMIVF2DSlw6QouhmM69ZxuhyOeos8MJbY5V6QxTKSIa8ebQvIk2x6t7GmaKN24cAq76JADDkEumoHizRwpB4wq4hHJsN764KZfPGk7oypEx5jYjtVX+OwRYHbXwEANk10Fxnsz8KQIAVvrqlJZ2oVG/KV8OjKFnwqLxmBlnPTyUKzKuAPN7GZmDgzf9NnEsk8AVossezjNvRfc9K0SD+GQQNdfuS7WI3z8bsl6gn6DzG5tbSeNtVpx9o4Bkex6d4yyRYPbCJQSqcEx2hA/Y7nb40Q7+IH3LZb4u6C91ZKCs5Y9ZICBUWTGfg2pJkyEgjBs5BzC/TvOJJf8LHu0vocUOkfp465oP7n2Kwgn9UGXyCvjB8NWAppRvJkkteJ0BCzBwf2QF8itp4ujumzhAFCigpFZMZi8hbmlsC3zeSegZ+bjjFqhVyAaxXiv5DOfQgSa81UI5J5/zaF8j9hmqZEJFlOWcMDR30qDvyx67pSO5nYBjCTO9toGngX22TWo/mDmJ7ylT18tNX+T1gCWrBpDiR+dD2fifo0JGe4I9JesonDdjMaOzUCo5D1atgHtUuS+vQ77xNYaDHhvgARufMPJJkD9l0r75ZopoGCyahY5oe+PNBi0bdDHcXgt6ihdfRJfY4ZvhgFCeElvapR4wDlWOrUVj/wbgo5AG5sGvoD6vylwRS9lvtPTEAxG6r+I+0Y/8xOEjMvDdRWQQOi7sr9WZXd9QHJ8GVUe2d06qSKODsI000ZE2sPJP4mo3uvP5AfG598Qu+gDoJcObNRvKw2hsBcThg/VzNbiAK9ynEY1rXw7rr2CYOthQro/jtstVJ7m4cx+QK786MdOTr3D30FWPy3M3XKGQbo9gnWFdyC6niJsoKccPuxtL7vmQFriBB4n0+AsMqY3jIfj7HkyQk4WWgLayqVH1OTbQfF6DjKRUX5lJ4IKQENrJeWa/4wI15xE+0gkqXU6ZU2wxgL1fR5IuFoJuwWOdN0E94T7h/c5rxgRZsc1RYxk+0j9RCtpqXQY+16H6lUpJH0Oweg+R8bV4h5ZxSTOXZsCyqhYe7FO/QBlb03bZeHniUv2BvvbRICcBFAnGPEbwUOXQuuzDtLMj4xcZjjxGrGqcZM3LSk/8wHCaM8JE8uCwt2X8oVvDwbXqYi6RusywXbx0IOVnwhttopNIgRPZDiiYOYGyGix2Ta5peYxzkYOQq3XHSMoYxD6ebz36QUG1SCAYZnWTQPHzINUQlYAbBWA8fRrcRw5Q9NNC8o9wM2FDI7q3ro//GWLg3SPcAm/alZCcfC5i4CStx8zEaJGVUhGYxflSUITqF/jt8RsXrRCN+XBaYQBiAdYdUGPbP0phLiTEnjxe/34HQn7PMT8JKsLb4vykqjL7n/KtGCijPPKATeNs9hqL3npDA3S10bLZgb4l0Jn5qtYhfam5iW3hTTgaLHk/tpPlN8nb/lO3UC4IF3E1fbR/lcGP5xY7W0OGX5JeGI5515RlcAqBUlxCXQzIkXtzV24mpqlVLMVfDGnqh2A/pmzWBCx1J/O2MwwaVBekeCsKN4N4U8CHQBQ6+7xV1Q2BWw6JyT3s1tI7y05KSHkg03Fg3Rx+CHsSLNVQhe9UEHyr0ZYsP8l9KCk18IU6z6uSfpFfH6k4SYkM7KJQFfFU0y5sDcMSqW8CcIVvQa2Y/3CKiJRvVUtLwSq6rOEAj9Akqt+3CxpLu+4ILCs6p5tp5a7DZtvOLMjN2qC3mmRMRERbcbaEXuJifDPtbdWcfWePxYmAtSn6p8STRsa68wdJEYgOZwKPx2yUj5rmEW7lZ1CoDEF8gXQRyMfuG5fYCbWPE5DZ3/QAE7yVJLA72305zpzcDdut+RPik7yMpSKH/R77h0VU81UeHM3o2E1EJfAXuc6hCrX1ao/djKOQuupbIpsiYg3+LSX8NtMkT8mBNgKrg4loK6IAtqJ6ivyXdotWCi6prKnUJ8FIH7fl6k4+eIWjVjt2I8ejl0k2vuyxMKN+sFIQCeksrUWN8EW4m/pxHpV+zLa9iP1WelVIarT2laVCnotkvKEzcGbhzKSxPHt4jBus7PD83gsHGyaPSwAFyhllTqzLafUHoCdsDvyjFJYzbWRV+5ywE6ykmiOjrbFnEAbJcxjmd7VkbqHLopF6vAo10G/GXD4s2ObXK7bgWvrhhd3i/aZ0kCqkZrg4QbxFz2RaMkNDbI20bV+mZVOnr0SE4K3dNdwyF1y87wZL6vyJU7Iv7gttEPOj9aryanLrSnOu6373aIFGhNoGJEz4CoGqetauqHwsO3KQSrRLT0NalsH+UrQ3/ex0Kf153SKZmQ7p8wQs/VE2SxGx4VKK+hzfUUNeCbMuCLZFAFM/olzfPc+HoAxXvo25hG4ueIo52f5do2QEAJbax1DaT6ztk0oFeAx9CUTR7zJgyJJANAR1NI2GLTwE8VdGCwYW9FM2GAsfHEvUlfQVEcFBI2Ft43svTqWIXY8oxZ2+YV0PJhFSOW6eKmQ366oTRTmPsgAzvfCbz6q3oEReA/UCKwACPIo93Mn1/3qCPGPSrz1QBcgRzFS+MIzIF7+10UPj8wpu/VTUO6R/o5eGXq9M3/UJ0XHg077nYbfYJ29VDAZ45EQwHnh89wHViqFffk/3yrmP5jHn2BkSmfhwkbrl9h/t7rqvVPii7fGu57LH1wOKO8N+89jbOYriL81vv4KA5XKSou5Gp5rzt9EXyQva4zTF4Gx4tvoCcV0AAbCJab9AXTDK0Gc+5Y8mlLKILnxOUA03x0cd3JDmS1bWFhSuPuzY+Q6pHwpkP/ji21sYf3qsvyOu8Si337B6Z5zywEGnX7QfnrohcVz13nUbBP5zx6ZqyN3zZZxu1OXPnlTqjqodVr+AsbOsMEOXRIiesJy4Zc0oKwQ9KhVcYQFseyjHS7V/r+FvkfKt7c+Ilu0mHHn6EC0PhDStgh0j6VO1+MnCt6fVQpdGeesXyKFMdbJAF3fD9kQIqA+KsgsqEMnyDVHO0vnTVKxIg0BuV6Z+Ux6DgsXfhwF7lNQSxwj5qNb2rIZlfOHul9k70r8XL08CEcmYtZRwh1ySuEJmBO0tcdigV4U3OnBX40mr3EeD9LJXoFZTjWR3rUOYbkQsReGKh8NHIh5Cypi6NiZ84jKYIuGMDL6fiqjXdKK2p+Kkabyr0iq4b+dkSRtfBfjVaWn+VpfElfR906sDpGifOkxgxm05mXn0ny25s9Y5PNLiLYF8rQVIoc0Z2f5uWkfz03UhRWrvUYr4HVj4pl/3J1myI6ZEVgAyOqU7dljdC2ut4QILRUOZi7ZgdW9FQiIHPJz6xghSHz815CYrTdeogVLoLcfVc76Azi+0DEtEQ0XJIRd0HA1xxOanVvvsk2NNfgvg0t3p0Slp5gg0nrEjVn9X+4/JeUigOjhAIRlsNmfgdUkkCfarIPxQ0GFt06gWUjZiIkl9HLEBWGtHEnMaCCaLQAd7v4Ezlae+aEoj5PqDkcSBYhhRTYhEE+1pgiNjrl+yZKmoc71VGS7AaqS1w1a98XMOinOMyjhIVuFWYkqhb/l5V6PKwXs4qC5zXhksmbM1BAiw2TgRSuuNhSHad417tpsRZrzkxekneFjjWpdpYWm3BmGplbbzSk0aonGefg8dygwyOHfeEm3/pZt4TfoBGPCxGhJGFd2RYiWgfRsnnJIfaB1tG3L25WEDIHjkMrXttNzHeWhrp2Nx6NfUFgiCqqmBHLPypJhbjHaCsIkqZAIjsXgjlBSjIA26DFAg9K6LK7OItYFCWko0wREa8NQgmm+gl+iYhRk7EB8Ydz3BULw5Hn/nnRjpXPz2/DYr99fSZH50iet00oSnv4k/I483i+Mnlo+H67ZP1qjtIdoBQyvXlI4SspUKYWvP4ymxMppvNHcU5Hp/ySkaRYsmQBYrbNN3YfoUj5ggYk5c3OErXNsX276DmwGRA6gAEFzQ8glJ+pRJ9Z/iNi86bDamb66C53WJD7Gd+kBNTI4QACxfMz8ZjWnonLbreLn1gbwAAoCPgdJdKCqB8kliAAA">
+      <span class="tag">Product prototype</span>
+    </div>
+  </section>
+
+  <section id="how" class="monitor glass" aria-labelledby="how-h">
+    <h2 id="how-h">How it works</h2>
+    <ol class="steps" id="steps">
+      <li class="step"><span class="num">01</span><div><p>The massager is placed on the donor&#x27;s calves before donation begins.</p></div></li>
+      <li class="step"><span class="num">02</span><div><p>It delivers gentle massage while blood is drawn.</p></div></li>
+      <li class="step"><span class="num">03</span><div><p>The massage helps relax the legs and encourages circulation.</p></div></li>
+    </ol>
+  </section>
+
+  <section class="card glass" aria-labelledby="what-h">
+    <span class="eyebrow" id="what-h">What it is</span>
+    <p class="big">A massager that fits around the donor&#x27;s calves while they sit or recline for donation. It applies gentle, rhythmic massage to the lower legs throughout the procedure.</p>
+  </section>
+
+  <section id="features" aria-labelledby="feat-h" class="stack">
+    <h2 id="feat-h" style="padding-inline:6px">Key features</h2>
+    <div class="features">
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>
+        <div><h3>Gentle calf massage designed around the donation chair</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <div><h3>Controlled compression and release mechanism</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        <div><h3>Safety features, including pressure limits and an emergency stop</h3></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card glass" aria-labelledby="who-h">
+    <h2 id="who-h">Where it's used</h2>
+    <div class="chips">
+      <span class="chip">Blood donation centers and blood banks</span>
+      <span class="chip">Supervised post-donation recovery areas</span>
+      <span class="chip">Healthcare and wellness facilities</span>
+    </div>
+    <h2>Benefits</h2>
+    <ul class="benefits">
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Improves donor comfort during donation</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Supports circulation in the legs, which may help donors keep a comfortable blood pressure after donating</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Offers adjustable massage settings, depending on the design</span></li>
+    </ul>
+  </section>
+</main>
+
+<nav class="tabbar glass" aria-label="Sections">
+  <a class="tab active" href="#overview"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Overview</a>
+  <a class="tab" href="#how"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>How</a>
+  <a class="tab" href="#features"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.8 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg>Features</a>
+  <a class="tab ext" href="./"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>All</a>
+</nav>
+
+<script>
+(function(){
+  const tabs = [...document.querySelectorAll('.tab:not(.ext)')];
+  const secs = tabs.map(t => document.querySelector(t.getAttribute('href')));
+  if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver(es => {
+      es.forEach(e => { if (e.isIntersecting){ const i = secs.indexOf(e.target); tabs.forEach((t, j) => t.classList.toggle('active', i === j)); } });
+    }, {rootMargin: '-40% 0px -50% 0px'});
+    secs.forEach(s => s && io.observe(s));
+  }
+  tabs.forEach(t => t.addEventListener('click', e => { e.preventDefault(); document.querySelector(t.getAttribute('href')).scrollIntoView({behavior:'smooth', block:'start'}); }));
+})();
+</script>
+</body>
+</html>

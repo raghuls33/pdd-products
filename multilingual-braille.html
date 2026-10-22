@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="An IoT-enabled Braille learning device with a tactile six-dot input interface and a built-in speaker.">
+<title>Multilingual Braille</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{--mint:#ffc46b;--accent-rgb:255,196,107}
+/* Layout: a single phone-width column of frosted glass panels over slow aurora light, app-style tab bar pinned to the bottom. Accent (--mint) is set per product category. */
+:root{
+  color-scheme: dark;
+  --ink:#06141a; --ink-2:#0b2229;
+  --glow:#2fb9c9;
+  --fg:#e9f6f3; --muted:#93b3ad;
+  --glass:rgba(220,255,245,.07); --glass-hi:rgba(220,255,245,.12);
+  --stroke:rgba(200,255,240,.16); --stroke-soft:rgba(200,255,240,.08);
+  --photo:#eef2f1;
+  --f-display:"Unbounded","Manrope",system-ui,sans-serif;
+  --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --r-lg:28px; --r-md:20px; --r-sm:14px;
+}
+*{box-sizing:border-box}
+html,body{background:var(--ink)}
+body{color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.aurora{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.aurora i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;animation:drift 22s ease-in-out infinite alternate}
+.aurora i:nth-child(1){width:420px;height:420px;background:var(--glow);top:-120px;left:-140px}
+.aurora i:nth-child(2){width:360px;height:360px;background:var(--mint);top:38%;right:-180px;opacity:.3;animation-duration:28s}
+.aurora i:nth-child(3){width:300px;height:300px;background:#1f6f8b;bottom:-80px;left:-60px;animation-duration:34s}
+.aurora::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,transparent 40%,var(--ink) 95%)}
+@keyframes drift{to{transform:translate(60px,80px) scale(1.15)}}
+.app{position:relative;z-index:1;max-width:460px;margin:0 auto;padding-inline:16px;padding-block:14px 120px;display:flex;flex-direction:column;gap:18px}
+.glass{background:linear-gradient(160deg,var(--glass-hi),var(--glass));border:1px solid var(--stroke);border-radius:var(--r-lg);backdrop-filter:blur(22px) saturate(140%);-webkit-backdrop-filter:blur(22px) saturate(140%);box-shadow:0 20px 50px -24px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.08)}
+.topbar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 16px;border-radius:999px}
+.brand{font-family:var(--f-display);font-weight:500;font-size:12px;letter-spacing:.04em;text-decoration:none;white-space:nowrap}
+.brand:hover{color:var(--mint)}
+.brand:focus-visible{outline:2px solid var(--mint);outline-offset:4px;border-radius:6px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;background:rgba(var(--accent-rgb),.12);color:var(--mint);border:1px solid rgba(var(--accent-rgb),.28);white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.dot{flex:none;width:7px;height:7px;border-radius:50%;background:currentColor;animation:ping 2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(var(--accent-rgb),.5)}100%{box-shadow:0 0 0 8px rgba(var(--accent-rgb),0)}}
+.hero{padding:22px 20px 20px;display:flex;flex-direction:column;gap:16px;overflow:hidden;position:relative}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,8vw,36px);line-height:1.06;letter-spacing:-.02em;margin:0;text-wrap:balance;overflow-wrap:anywhere}
+h1 span{color:var(--mint)}
+.lede{margin:0;color:var(--muted);max-width:44ch}
+.device{position:relative;border-radius:var(--r-md);overflow:hidden;aspect-ratio:1/1;max-width:100%;background:var(--photo);border:1px solid var(--stroke-soft)}
+.device img{width:100%;height:100%;object-fit:contain;display:block}
+.device .tag{position:absolute;left:12px;bottom:12px;z-index:2;font-family:var(--f-mono);font-size:11px;color:var(--fg);padding:6px 10px;border-radius:10px;background:rgba(6,20,26,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--stroke);max-width:calc(100% - 24px)}
+.monitor{padding:20px;display:flex;flex-direction:column;gap:12px}
+h2{font-family:var(--f-display);font-weight:500;font-size:18px;letter-spacing:-.01em;margin:0;text-wrap:balance}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;padding:10px 0;position:relative}
+.step:not(:last-child)::before{content:"";position:absolute;left:19px;top:52px;bottom:-6px;width:2px;background:linear-gradient(var(--stroke),transparent)}
+.step p{margin:0;padding-top:9px;color:var(--fg);font-size:14px}
+.num{background:var(--mint);color:var(--ink)}
+.step.done .num{border-color:rgba(var(--accent-rgb),.5)}
+.num{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-family:var(--f-mono);font-size:14px;color:var(--mint);background:rgba(var(--accent-rgb),.1);border:1px solid rgba(var(--accent-rgb),.28);}
+section{scroll-margin-top:80px}
+.card{padding:20px;display:flex;flex-direction:column;gap:14px}
+.card p{margin:0;color:var(--muted)}
+.card p.big{color:var(--fg);font-size:16px;line-height:1.6}
+.stack{display:flex;flex-direction:column;gap:12px}
+.features{display:grid;grid-template-columns:1fr;gap:12px}
+.feat{padding:16px 18px;display:grid;grid-template-columns:48px 1fr;gap:14px;align-items:center;border-radius:var(--r-md)}
+.feat .ico{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(140deg,rgba(var(--accent-rgb),.25),rgba(47,185,201,.08));border:1px solid var(--stroke)}
+.feat .ico svg{width:24px;height:24px;stroke:var(--mint);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.feat h3{margin:0;font-size:15px;font-weight:600;line-height:1.4}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--stroke);transition:background .2s}
+.chip:hover{background:rgba(var(--accent-rgb),.14)}
+.benefits{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.benefits li{display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start;font-size:14px}
+.benefits svg{width:22px;height:22px;stroke:var(--mint);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-top:1px}
+.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:10;width:min(428px,calc(100% - 32px));display:grid;grid-template-columns:repeat(4,1fr);padding:8px;border-radius:26px}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;border-radius:18px;color:var(--muted);text-decoration:none;font-size:11px;font-weight:600;transition:all .25s}
+.tab svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab.active{color:var(--ink);background:var(--mint);box-shadow:0 6px 18px -6px rgba(var(--accent-rgb),.7)}
+.tab:hover:not(.active){color:var(--fg)}
+.tab:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body style="margin:0">
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<main class="app">
+  <header class="topbar glass">
+    <a class="brand" href="./">← ALL PRODUCTS</a>
+    <span class="pill"><span class="dot"></span>Rehab &amp; assistive</span>
+  </header>
+
+  <section id="overview" class="hero glass">
+    <span class="eyebrow">Rehab &amp; assistive · Product design</span>
+    <h1>Multilingual <span>Braille</span></h1>
+    <p class="lede">An IoT-enabled Braille learning device with a tactile six-dot input interface and a built-in speaker.</p>
+    <div class="device" id="device">
+      <img alt="Photo of the Multilingual Braille" src="data:image/webp;base64,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">
+      <span class="tag">Product prototype</span>
+    </div>
+  </section>
+
+  <section id="how" class="monitor glass" aria-labelledby="how-h">
+    <h2 id="how-h">How it works</h2>
+    <ol class="steps" id="steps">
+      <li class="step"><span class="num">01</span><div><p>The user enters a character using the six Braille dot buttons.</p></div></li>
+      <li class="step"><span class="num">02</span><div><p>The first four buttons double as language switches, so the user can select one of four customizable languages.</p></div></li>
+      <li class="step"><span class="num">03</span><div><p>The device translates the Braille input over Wi-Fi.</p></div></li>
+      <li class="step"><span class="num">04</span><div><p>Pressing the output button plays the result as clear audio through the integrated speaker.</p></div></li>
+    </ol>
+  </section>
+
+  <section class="card glass" aria-labelledby="what-h">
+    <span class="eyebrow" id="what-h">What it is</span>
+    <p class="big">An IoT-enabled Braille learning device with a tactile six-dot input interface and a built-in speaker. It lets learners type Braille characters and hear them spoken aloud in their chosen language, making Braille practice interactive and independent</p>
+  </section>
+
+  <section id="features" aria-labelledby="feat-h" class="stack">
+    <h2 id="feat-h" style="padding-inline:6px">Key features</h2>
+    <div class="features">
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>
+        <div><h3>Tactile six-dot Braille input</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <div><h3>Four customizable languages, selected with the first four buttons</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        <div><h3>Real-time audio feedback through the built-in speaker</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M4 17l6-6 4 4 6-8"/><path d="M14 7h6v6"/></svg></span>
+        <div><h3>Dedicated output button and space key</h3></div>
+      </div>
+      <div class="feat glass">
+        <span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span>
+        <div><h3>Wi-Fi enabled for IoT connectivity</h3></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card glass" aria-labelledby="who-h">
+    <h2 id="who-h">Where it's used</h2>
+    <div class="chips">
+      <span class="chip">Schools for the visually impaired</span>
+      <span class="chip">Inclusive classrooms</span>
+      <span class="chip">Special education centers</span>
+      <span class="chip">Rehabilitation</span>
+      <span class="chip">Training institutes</span>
+      <span class="chip">Libraries</span>
+      <span class="chip">Home learning for visually impaired users</span>
+    </div>
+    <h2>Benefits</h2>
+    <ul class="benefits">
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Lets learners practice Braille independently, with instant audio confirmation</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Supports multilingual learning in one compact device</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Reduces dependence on a teacher for constant checking and correction</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg><span>Makes Braille learning more engaging and accessible</span></li>
+    </ul>
+  </section>
+</main>
+
+<nav class="tabbar glass" aria-label="Sections">
+  <a class="tab active" href="#overview"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Overview</a>
+  <a class="tab" href="#how"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>How</a>
+  <a class="tab" href="#features"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.8 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg>Features</a>
+  <a class="tab ext" href="./"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>All</a>
+</nav>
+
+<script>
+(function(){
+  const tabs = [...document.querySelectorAll('.tab:not(.ext)')];
+  const secs = tabs.map(t => document.querySelector(t.getAttribute('href')));
+  if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver(es => {
+      es.forEach(e => { if (e.isIntersecting){ const i = secs.indexOf(e.target); tabs.forEach((t, j) => t.classList.toggle('active', i === j)); } });
+    }, {rootMargin: '-40% 0px -50% 0px'});
+    secs.forEach(s => s && io.observe(s));
+  }
+  tabs.forEach(t => t.addEventListener('click', e => { e.preventDefault(); document.querySelector(t.getAttribute('href')).scrollIntoView({behavior:'smooth', block:'start'}); }));
+})();
+</script>
+</body>
+</html>
